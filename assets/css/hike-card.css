@@ -1,7 +1,6 @@
 .hike-card {
 	height: 350px;
-	width: 300px;
-	margin: 20px;
+	width: 80%;
 	text-align: center;
 	border: 1px solid gray;
 }
