@@ -13,8 +13,9 @@
 }
 
 #main {
+	width: 90vw;
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-auto-columns: 30%;
 	column-gap: 20px;
 }
 
