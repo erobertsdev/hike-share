@@ -1,0 +1,23 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+}
+
+#title {
+	text-align: center;
+}
+
+.title-text {
+	font-size: 3rem;
+}
+
+#main {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	column-gap: 20px;
+}
+
+#footer {
+	text-align: center;
+}
