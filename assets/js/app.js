@@ -9,7 +9,13 @@ const examples = [
 		difficulty: 'Hard',
 		date: 'Sep 1st, 2020',
 		time: '4 hours',
-		thumb: 'assets/img/placeholder.jpg'
+		images: [
+			'./assets/img/placeholder.jpg',
+			'./assets/img/placeholder2.jpg',
+			'./assets/img/placeholder3.jpg',
+			'./assets/img/placeholder4.jpg',
+			'./assets/img/placeholder5.jpg'
+		]
 	},
 	{
 		name: 'La Luz Trail',
@@ -19,7 +25,13 @@ const examples = [
 		difficulty: 'Difficult',
 		date: 'Sep 2nd, 2020',
 		time: '6.5 hours',
-		thumb: 'assets/img/placeholder.jpg'
+		images: [
+			'./assets/img/placeholder.jpg',
+			'./assets/img/placeholder2.jpg',
+			'./assets/img/placeholder3.jpg',
+			'./assets/img/placeholder4.jpg',
+			'./assets/img/placeholder5.jpg'
+		]
 	},
 	{
 		name: 'Piedra Lisa',
@@ -29,55 +41,53 @@ const examples = [
 		difficulty: 'Moderate',
 		date: 'Sep 3rd, 2020',
 		time: '2 hours',
-		thumb: 'assets/img/placeholder.jpg'
+		images: [
+			'./assets/img/placeholder.jpg',
+			'./assets/img/placeholder2.jpg',
+			'./assets/img/placeholder3.jpg',
+			'./assets/img/placeholder4.jpg',
+			'./assets/img/placeholder5.jpg'
+		]
 	}
 ];
+
+const createImgList = (arr) => {
+	let list = '';
+	for (let imageArr of arr) {
+		const { images } = imageArr;
+		for (let img of images) {
+			list += `
+		<div class="carousel-cell">
+			<img src="${img}">
+		</div>
+		`;
+		}
+		return list;
+	}
+};
 
 const renderGallery = (arr) => {
 	arr.map((hike) => {
 		const card = document.createElement('div');
 		card.classList.add('hike-card');
-		const { name, city, state, distance, difficulty, date, time, thumb } = hike;
+		const { name, city, state, distance, difficulty, date, time } = hike;
 
 		card.innerHTML = `
                 <div class="hike-card-header">
                     <div class="hike-card-title">
-                        <h4>${name}</h4>
-                        <h5>${city}, ${state}</h5>
+                        <h4 class="hike-card-name">${name}</h4>
+                        <h5 class="hike-card-location">${city}, ${state}</h5>
                     </div>
                     <div class="hike-card-date">
                         ${date}
                     </div>
                     <div class="hike-card-avatar">
-                        AVATAR
+					<img class="hike-card-avatar-sm" src="./assets/img/avatar.jpg">
                     </div>
                 </div>
 				<div class="hike-card-image">
 						<div class="carousel">
-							<div class="carousel-cell">
-								<img class="hike-card-img" src="./assets/img/placeholder.jpg">
-							</div>
-							<div class="carousel-cell">
-								<img class="hike-card-img" src="./assets/img/placeholder.jpg">
-							</div>
-							<div class="carousel-cell">
-								<img class="hike-card-img" src="./assets/img/placeholder.jpg">
-							</div>
-							<div class="carousel-cell">
-								<img class="hike-card-img" src="./assets/img/placeholder.jpg">
-							</div>
-							<div class="carousel-cell">
-								<img class="hike-card-img" src="./assets/img/placeholder.jpg">
-							</div>
-							<div class="carousel-cell">
-								<img class="hike-card-img" src="./assets/img/placeholder.jpg">
-							</div>
-							<div class="carousel-cell">
-								<img class="hike-card-img" src="./assets/img/placeholder.jpg">
-							</div>
-							<div class="carousel-cell">
-								<img class="hike-card-img" src="./assets/img/placeholder.jpg">
-							</div>
+							${createImgList(examples)}
 						</div>
                 </div>
                 <div class="hike-card-footer">
@@ -86,7 +96,7 @@ const renderGallery = (arr) => {
                         <p>${difficulty}</p>
                         <p>${time}</p>
                     </div>
-                </div>
+				</div>
         `;
 
 		gallery.appendChild(card);

@@ -1,13 +1,13 @@
-var carousel = document.querySelector('.carousel');
-var flkty = new Flickity(carousel, {
-	imagesLoaded: true,
-	percentPosition: false
-});
-
-var imgs = carousel.querySelectorAll('.carousel-cell img');
-// get transform property
-var docStyle = document.documentElement.style;
-var transformProp = typeof docStyle.transform == 'string' ? 'transform' : 'WebkitTransform';
+const carousel = document.querySelectorAll('.carousel');
+for (let post of carousel) {
+	var flkty = new Flickity(post, {
+		imagesLoaded: true,
+		percentPosition: false
+	});
+	var imgs = post.querySelectorAll('.carousel-cell img');
+	var docStyle = document.documentElement.style;
+	var transformProp = typeof docStyle.transform == 'string' ? 'transform' : 'WebkitTransform';
+}
 
 flkty.on('scroll', function() {
 	flkty.slides.forEach(function(slide, i) {
