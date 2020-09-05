@@ -52,8 +52,33 @@ const renderGallery = (arr) => {
                         AVATAR
                     </div>
                 </div>
-                <div class="hike-card-image">
-                    <img class="hike-card-img" src="./assets/img/placeholder.jpg">
+				<div class="hike-card-image">
+						<div class="carousel">
+							<div class="carousel-cell">
+								<img class="hike-card-img" src="./assets/img/placeholder.jpg">
+							</div>
+							<div class="carousel-cell">
+								<img class="hike-card-img" src="./assets/img/placeholder.jpg">
+							</div>
+							<div class="carousel-cell">
+								<img class="hike-card-img" src="./assets/img/placeholder.jpg">
+							</div>
+							<div class="carousel-cell">
+								<img class="hike-card-img" src="./assets/img/placeholder.jpg">
+							</div>
+							<div class="carousel-cell">
+								<img class="hike-card-img" src="./assets/img/placeholder.jpg">
+							</div>
+							<div class="carousel-cell">
+								<img class="hike-card-img" src="./assets/img/placeholder.jpg">
+							</div>
+							<div class="carousel-cell">
+								<img class="hike-card-img" src="./assets/img/placeholder.jpg">
+							</div>
+							<div class="carousel-cell">
+								<img class="hike-card-img" src="./assets/img/placeholder.jpg">
+							</div>
+						</div>
                 </div>
                 <div class="hike-card-footer">
                     <div class="hike-card-info">

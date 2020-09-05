@@ -1,10 +1,4 @@
 .hike-card {
-	height: fit-content;
-	width: 80%;
 	text-align: center;
-	border: 1px solid gray;
-}
-
-.hike-card-img {
-	max-width: 80%;
+	border-bottom: 1px solid gray;
 }
