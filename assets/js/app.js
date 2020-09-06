@@ -1,77 +1,37 @@
 const gallery = document.getElementById('main'),
 	logout = document.getElementById('logout');
 
-const examples = [
-	{
-		name: 'Pino Trail',
-		city: 'Albuquerque',
-		state: 'NM',
-		distance: 7.1,
-		difficulty: 'Hard',
-		date: 'Sep 1st, 2020',
-		time: '4 hours',
-		images: [
-			'./assets/img/placeholder.jpg',
-			'./assets/img/placeholder2.jpg',
-			'./assets/img/placeholder3.jpg',
-			'./assets/img/placeholder4.jpg',
-			'./assets/img/placeholder5.jpg'
-		]
-	},
-	{
-		name: 'La Luz Trail',
-		city: 'Albuquerque',
-		state: 'NM',
-		distance: 13.1,
-		difficulty: 'Difficult',
-		date: 'Sep 2nd, 2020',
-		time: '6.5 hours',
-		images: [
-			'./assets/img/placeholder.jpg',
-			'./assets/img/placeholder2.jpg',
-			'./assets/img/placeholder3.jpg',
-			'./assets/img/placeholder4.jpg',
-			'./assets/img/placeholder5.jpg'
-		]
-	},
-	{
-		name: 'Piedra Lisa',
-		city: 'Albuquerque',
-		state: 'NM',
-		distance: 3.5,
-		difficulty: 'Moderate',
-		date: 'Sep 3rd, 2020',
-		time: '2 hours',
-		images: [
-			'./assets/img/placeholder.jpg',
-			'./assets/img/placeholder2.jpg',
-			'./assets/img/placeholder3.jpg',
-			'./assets/img/placeholder4.jpg',
-			'./assets/img/placeholder5.jpg'
-		]
+auth.onAuthStateChanged((user) => {
+	if (user) {
+		console.log('User is logged in', user);
+	} else {
+		console.log('User logged out.');
 	}
-];
+});
 
 const createImgList = (arr) => {
 	let list = '';
-	for (let imageArr of arr) {
-		const { images } = imageArr;
-		for (let img of images) {
-			list += `
+	const { images } = arr;
+	for (let img of images) {
+		list += `
 		<div class="carousel-cell">
 			<img src="${img}">
 		</div>
 		`;
-		}
-		return list;
 	}
+	return list;
 };
 
-const renderGallery = (arr) => {
-	arr.map((hike) => {
+const renderGallery = async (arr) => {
+	// get data from Firestore
+	const posts = await db.collection('posts').get().then((snapshot) => {
+		return snapshot.docs;
+	});
+
+	posts.map((hike) => {
 		const card = document.createElement('div');
 		card.classList.add('hike-card');
-		const { name, city, state, distance, difficulty, date, time } = hike;
+		const { name, city, state, distance, difficulty, date, time } = hike.data();
 
 		card.innerHTML = `
                 <div class="hike-card-header">
@@ -88,7 +48,7 @@ const renderGallery = (arr) => {
                 </div>
 				<div class="hike-card-image">
 						<div class="carousel">
-							${createImgList(examples)}
+							${createImgList(hike.data())}
 						</div>
                 </div>
                 <div class="hike-card-footer">
@@ -102,9 +62,29 @@ const renderGallery = (arr) => {
 
 		gallery.appendChild(card);
 	});
+
+	// Image Carousel Effect
+	let carousel = document.querySelectorAll('.carousel');
+	for (let post of carousel) {
+		let flkty = new Flickity(post, {
+			imagesLoaded: true,
+			percentPosition: false
+		});
+		let imgs = post.querySelectorAll('.carousel-cell img');
+		let docStyle = document.documentElement.style;
+		let transformProp = typeof docStyle.transform == 'string' ? 'transform' : 'WebkitTransform';
+
+		flkty.on('scroll', function() {
+			flkty.slides.forEach(function(slide, i) {
+				let img = imgs[i];
+				let x = (slide.target + flkty.x) * -1 / 3;
+				img.style[transformProp] = 'translateX(' + x + 'px)';
+			});
+		});
+	}
 };
 
-renderGallery(examples);
+renderGallery();
 
 // Logout user
 logout.addEventListener('click', (e) => {

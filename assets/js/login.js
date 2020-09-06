@@ -12,7 +12,6 @@ loginForm.addEventListener('submit', (e) => {
 		.then((cred) => {
 			loginForm.reset();
 			window.location.replace('../../index.html');
-			console.log(cred.user);
 		})
 		.catch((err) => {
 			errorMessage.innerHTML = `<h4 class="error-message">${err.message}</h4>`;
