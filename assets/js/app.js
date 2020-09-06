@@ -1,12 +1,22 @@
 const gallery = document.getElementById('main'),
-	logout = document.getElementById('logout');
+	logout = document.getElementById('logout'),
+	loggedOutLinks = document.querySelectorAll('.logged-out'),
+	loggedInLinks = document.querySelectorAll('.logged-in');
+
+const renderNav = (user) => {
+	if (user) {
+		for (let link of loggedInLinks) {
+			link.classList.remove('hidden');
+		}
+	} else {
+		for (let link of loggedOutLinks) {
+			link.classList.remove('hidden');
+		}
+	}
+};
 
 auth.onAuthStateChanged((user) => {
-	if (user) {
-		console.log('User is logged in', user);
-	} else {
-		console.log('User logged out.');
-	}
+	renderNav(user);
 });
 
 const createImgList = (arr) => {
@@ -52,7 +62,7 @@ const renderGallery = async (arr) => {
 	posts.map((hike) => {
 		const card = document.createElement('div');
 		card.classList.add('hike-card');
-		const { name, city, state, distance, difficulty, date, time } = hike.data();
+		const { name, city, state, distance, difficulty, date, duration } = hike.data();
 
 		card.innerHTML = `
                 <div class="hike-card-header">
@@ -74,9 +84,9 @@ const renderGallery = async (arr) => {
                 </div>
                 <div class="hike-card-footer">
                     <div class="hike-card-info">
-                        <p>${distance} miles</p>
+                        <p>${distance}</p>
                         <p>${difficulty}</p>
-                        <p>${time}</p>
+                        <p>${duration}</p>
                     </div>
 				</div>
         `;
