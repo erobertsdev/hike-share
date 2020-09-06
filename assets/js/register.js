@@ -1,6 +1,6 @@
 // Register
 const registerForm = document.getElementById('register-form'),
-	errors = document.getElementById('register-errors');
+	errorMessage = document.getElementById('errors');
 
 registerForm.addEventListener('submit', (e) => {
 	e.preventDefault();
@@ -10,17 +10,16 @@ registerForm.addEventListener('submit', (e) => {
 	const confirmPassword = registerForm['register-confirm-password'].value;
 
 	if (password !== confirmPassword) {
-		errors.innerHTML = `PASSWORDS DON'T MATCH, DUMBO`;
+		errors.innerHTML = `<h4 class="error-message">Passwords don't match. Please check and try again.</h4>`;
 	} else {
 		auth
 			.createUserWithEmailAndPassword(email, password)
-			.catch((err) => {
-				errors.innerHTML = `Error: ${err.message}`;
-			})
-			.then((cred) => {
-				console.log(cred);
+			.then(() => {
 				registerForm.reset();
 				window.location.replace('../../index.html');
+			})
+			.catch((err) => {
+				errorMessage.innerHTML = `<h4 class="error-message">${err.message}</h4>`;
 			});
 	}
 });

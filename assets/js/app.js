@@ -1,4 +1,5 @@
-const gallery = document.getElementById('main');
+const gallery = document.getElementById('main'),
+	logout = document.getElementById('logout');
 
 const examples = [
 	{
@@ -104,3 +105,8 @@ const renderGallery = (arr) => {
 };
 
 renderGallery(examples);
+
+// Logout user
+logout.addEventListener('click', (e) => {
+	auth.signOut().then(() => location.reload());
+});
