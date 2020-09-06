@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hike Share | Create Post</title>
+</head>
+<body>
+    <h1>Create Post</h1>
+    <section id="create">
+        <form id="create-form">
+            <div class="input-field">
+                <input type="text" id="name" required />
+                <label for="create-name">Trail Name</label>
+            </div>
+            <div class="input-field">
+                <input type="text" id="location" required />
+                <label for="create-location">Location</label>
+            </div>
+            <div class="input-field">
+                <input type="text" id="distance" required />
+                <label for="create-distance">Distance</label>
+            </div>
+            <div class="input-field">
+                <input type="text" id="difficulty" required />
+                <label for="create-difficulty">Difficulty</label>
+            </div>
+            <div class="input-field">
+                <input type="text" id="time" required />
+                <label for="create-time">Time</label>
+            </div>
+            <button class="create-btn">Post</button>
+        </form>
+    </section>
+
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
+    <script src="./assets/js/firebase.js"></script>
+</body>
+</html>

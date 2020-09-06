@@ -17,7 +17,21 @@
             <div class="nav-menu">
                 <div class="nav-menu-icon">
                     <ul class="nav-menu-options">
-                        <li>Login</li>
+                        <li class="logged-out">
+                            <a href="./assets/login.html">Login</a>
+                        </li>
+                        <li class="logged-out">
+                            <a href="./assets/register.html">Register</a>
+                        </li>
+                        <li class="logged-in">
+                            <a href="./assets/account.html">Account</a>
+                        </li>
+                        <li class="logged-in">
+                            <a href="./assets/create-post.html">Create Post</a>
+                        </li>
+                        <li class="logged-in">
+                            <a href="#">Log Out</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -30,7 +44,11 @@
     <footer id="footer">
         Copyright 2020 | Elias Roberts Web Development
     </footer>
-    
+
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
+    <script src="./assets/js/firebase.js"></script>
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     <script src="./assets/js/app.js"></script>
     <script src="./assets/js/nav.js"></script>
