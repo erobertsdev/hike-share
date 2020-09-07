@@ -1,3 +1,6 @@
+/* TODOS:
+    Update user photoURL SOMEWHERE, SOMEHOW!!!!
+*/
 const accountInfoDOM = document.getElementById('account');
 
 const renderAccountInfo = (user) => {
