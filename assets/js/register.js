@@ -5,16 +5,30 @@ const registerForm = document.getElementById('register-form'),
 registerForm.addEventListener('submit', (e) => {
 	e.preventDefault();
 
-	const email = registerForm['register-email'].value;
-	const password = registerForm['register-password'].value;
-	const confirmPassword = registerForm['register-confirm-password'].value;
+	const email = registerForm['register-email'].value,
+		password = registerForm['register-password'].value,
+		confirmPassword = registerForm['register-confirm-password'].value,
+		name = registerForm['register-name'].value,
+		avatar = registerForm['register-avatar'].value;
 
 	if (password !== confirmPassword) {
 		errors.innerHTML = `<h4 class="error-message">Passwords don't match. Please check and try again.</h4>`;
 	} else {
 		auth
 			.createUserWithEmailAndPassword(email, password)
+			.then((cred) => {
+				return db.collection('users').doc(cred.user.uid).set({
+					name: name,
+					photoURL: avatar
+				});
+			})
 			.then(() => {
+				if (avatar) {
+					let user = auth.currentUser;
+					user.updateProfile({
+						photoURL: avatar
+					});
+				}
 				registerForm.reset();
 				window.location.replace('../../index.html');
 			})

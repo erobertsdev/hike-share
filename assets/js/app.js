@@ -17,6 +17,7 @@ const renderNav = (user) => {
 
 auth.onAuthStateChanged((user) => {
 	renderNav(user);
+	console.log(user);
 });
 
 const createImgList = (arr) => {
@@ -62,7 +63,7 @@ const renderGallery = async (arr) => {
 	posts.map((hike) => {
 		const card = document.createElement('div');
 		card.classList.add('hike-card');
-		const { name, city, state, distance, difficulty, date, duration } = hike.data();
+		const { name, city, state, distance, difficulty, date, duration, posterAvatar } = hike.data();
 
 		card.innerHTML = `
                 <div class="hike-card-header">
@@ -74,7 +75,7 @@ const renderGallery = async (arr) => {
                         ${date}
                     </div>
                     <div class="hike-card-avatar">
-					<img class="hike-card-avatar-sm" src="./assets/img/avatar.jpg">
+					<img class="hike-card-avatar-sm" src=${posterAvatar || '../assets/img/blank-avatar.png'}>
                     </div>
                 </div>
 				<div class="hike-card-image">
