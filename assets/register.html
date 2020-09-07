@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hike Share | Sign Up</title>
+    <title>Hike Share | Register</title>
 </head>
 <body>
-    <h1>Sign Up</h1>
+    <h1>Register</h1>
     <section id="register">
         <div id="errors"></div>
         <form id="register-form">
@@ -19,8 +19,8 @@
                 <input type="email" id="register-email" required />
             </div>
             <div class="input-field">
-                <label for="register-avatar">Link to Avatar Image (Optional)</label>
-                <input type="text" id="register-avatar" />
+                <label for="avatar-upload">Upload a profile picture:</label>
+                <input type="file" id="avatar-upload" name="avatar-upload" accept="image/png, image/jpeg" >
             </div>
             <div class="input-field">
                 <label for="register-password">Password</label>
@@ -37,6 +37,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
     <script src="./js/firebase.js"></script>
     <script src="./js/register.js"></script>
 </body>

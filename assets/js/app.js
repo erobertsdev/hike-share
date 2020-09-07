@@ -18,10 +18,6 @@ const renderNav = (user) => {
 auth.onAuthStateChanged((user) => {
 	renderNav(user);
 	console.log(auth.currentUser);
-	auth.currentUser.updateProfile({
-		photoURL:
-			'https://firebasestorage.googleapis.com/v0/b/hike-share-bfa7e.appspot.com/o/avatar.jpg?alt=media&token=61045ac3-db35-43d2-b826-5530a4efdd37'
-	});
 });
 
 const createImgList = (arr) => {
