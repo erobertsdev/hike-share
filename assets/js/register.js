@@ -24,7 +24,7 @@ registerForm.addEventListener('submit', (e) => {
 			})
 			.then(() => {
 				if (avatar) {
-					let user = auth.currentUser;
+					let user = firebase.auth().currentUser;
 					user.updateProfile({
 						photoURL: avatar
 					});
