@@ -51,6 +51,10 @@ const imageUpload = (file) => {
 	// );
 };
 
+/*
+	TODO: FIGURE OUT HOW TO UPLOAD THAT STUPID FILE OBJECT
+*/
+
 const createForm = document.getElementById('create-form'),
 	errorMessage = document.getElementById('errors'),
 	imageUploadElement = document.querySelector('fieldset'),
