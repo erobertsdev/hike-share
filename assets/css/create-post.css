@@ -1,0 +1,12 @@
+* {
+	text-align: center;
+}
+
+/* .create-form {
+	margin: 0 auto;
+} */
+
+.create-form-images {
+	margin: 20px auto;
+	max-width: 600px;
+}

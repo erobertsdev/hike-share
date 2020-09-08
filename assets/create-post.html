@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./plugins/filepond/filepond.css" rel="stylesheet">
+    <link href="./plugins/filepond/filepond-plugin-image-preview.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/create-post.css">
     <title>Hike Share | Create Post</title>
 </head>
 <body>
@@ -10,29 +13,33 @@
     <section id="create">
         <div id="errors"></div>
         <form id="create-form">
-            <div class="input-field">
+            <div class="create-form-name">
+                <label for="name">Trail Name</label><br>
                 <input type="text" id="name" required />
-                <label for="name">Trail Name</label>
             </div>
-            <div class="input-field">
+            <div class="create-form-city">
+                <label for="city">City</label><br>
                 <input type="text" id="city" required />
-                <label for="city">City</label>
             </div>
-            <div class="input-field">
+            <div class="create-form-state">
+                <label for="state">State</label><br>
                 <input type="text" id="state" required />
-                <label for="state">State</label>
             </div>
-            <div class="input-field">
+            <div class="create-form-distance">
+                <label for="distance">Distance</label><br>
                 <input type="text" id="distance" required />
-                <label for="distance">Distance</label>
             </div>
-            <div class="input-field">
+            <div class="create-form-difficulty">
+                <label for="difficulty">Difficulty</label><br>
                 <input type="text" id="difficulty" required />
-                <label for="difficulty">Difficulty</label>
             </div>
-            <div class="input-field">
+            <div class="create-form-duration">
+                <label for="duration">Duration</label><br>
                 <input type="text" id="duration" required />
-                <label for="duration">Duration</label>
+            </div>
+            <div class="create-form-images">
+                <label id="label-images" for="images">Upload Images (Up to 10)</label>
+                <fieldset><input type="file" id="images" multiple /></fieldset>
             </div>
             <button class="create-btn">Post</button>
         </form>
@@ -43,6 +50,10 @@
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
     <script src="./js/firebase.js"></script>
+    <script src="./plugins/filepond/filepond-plugin-image-preview.js"></script>
+    <script src="./plugins/filepond/filepond-plugin-image-exif-orientation.js"></script>
+    <script src="./plugins/filepond/filepond-plugin-image-resize.js"></script>
+    <script src="./plugins/filepond/filepond.js"></script>
     <script src="./js/create-post.js"></script>
 </body>
 </html>

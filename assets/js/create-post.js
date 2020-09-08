@@ -1,10 +1,13 @@
-const createForm = document.getElementById('create-form'),
-	errorMessage = document.getElementById('errors');
+FilePond.parse(document.body);
+FilePond.registerPlugin(FilePondPluginImagePreview, FilePondPluginImageExifOrientation, FilePondPluginImageResize);
 
-auth.onAuthStateChanged(function(user) {
+const imageArr = [];
+
+auth.onAuthStateChanged((user) => {
 	if (user) {
 		createForm.addEventListener('submit', (e) => {
 			e.preventDefault();
+			console.log('pond.files', pond.files);
 
 			db
 				.collection('posts')
@@ -36,3 +39,31 @@ auth.onAuthStateChanged(function(user) {
 		document.getElementById('create').innerHTML = `<h3>You are not logged in. Please login and try again.</h3>`;
 	}
 });
+
+const imageUpload = (file) => {
+	const fileName = `${user.uid}-img.${file.name.split('.')[1]}`;
+	alert(fileName);
+
+	// const upload = storageRef.child(`${user.uid}/images/${fileName}`).put(file);
+
+	// upload.then((snapshot) => snapshot.ref.getDownloadURL()).then((url) => imageArr.push(url)
+	// window.location.replace('../../index.html');
+	// );
+};
+
+const createForm = document.getElementById('create-form'),
+	errorMessage = document.getElementById('errors'),
+	imageUploadElement = document.querySelector('fieldset'),
+	pond = FilePond.create(imageUploadElement, {
+		maxFiles: 10,
+		allowReorder: true,
+		name: 'images',
+		required: true,
+		imageResizeTargetHeight: 400,
+
+		onaddfile: (err, file) => {
+			console.log(pond.getFile().file); // THAT'S THE FUCKING ONE
+			console.log('id', pond.getFile().id);
+			console.log('filename', pond.getFile().filename);
+		}
+	});
