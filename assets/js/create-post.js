@@ -5,9 +5,9 @@ const imageUrlArr = [];
 let imagesToUploadArr = [],
 	currentUser = null;
 
-const imageUpload = (file) => {
-	storageRef.child(`${currentUser.uid}/images/${file.name}`).put(file).then((snapshot) => {
-		alert('IMAGE UPLOADED YOU DONKEY');
+const imageUpload = (file, id) => {
+	storageRef.child(`${currentUser.uid}/images/${id}-${file.name}`).put(file).then((snapshot) => {
+		console.log(`${file.name} Uploaded`);
 		snapshot.ref.getDownloadURL().then((url) => {
 			imageUrlArr.push(url);
 			console.log(imageUrlArr);
@@ -59,13 +59,14 @@ const createForm = document.getElementById('create-form'),
 		name: 'images',
 		required: true,
 		imageResizeTargetHeight: 400,
+		checkValidity: true,
 
 		onupdatefiles: (files) => {
 			files.map((img) => {
 				if (!imagesToUploadArr.includes(img.file)) {
 					imagesToUploadArr.push(img.file);
 					console.log(imagesToUploadArr);
-					imageUpload(img.file);
+					imageUpload(img.file, img.id);
 				}
 			});
 		}
