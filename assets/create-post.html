@@ -37,6 +37,7 @@
                 <label for="duration">Duration</label><br>
                 <input type="text" id="duration" required />
             </div>
+            <div id="upload-status"></div>
             <div class="create-form-images">
                 <label id="label-images" for="images">Upload Images (Up to 10)</label>
                 <input type="file" id="images" multiple />
@@ -50,9 +51,10 @@
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
     <script src="./js/firebase.js"></script>
-    <script src="./plugins/filepond/filepond-plugin-image-preview.js"></script>
     <script src="./plugins/filepond/filepond-plugin-image-exif-orientation.js"></script>
+    <script src="./plugins/filepond/filepond-plugin-image-preview.js"></script>
     <script src="./plugins/filepond/filepond-plugin-image-resize.js"></script>
+    <script src="./plugins/filepond/filepond-plugin-file-validate-size.js"></script>
     <script src="./plugins/filepond/filepond.js"></script>
     <script src="./js/create-post.js"></script>
 </body>

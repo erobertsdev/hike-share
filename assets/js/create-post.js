@@ -1,17 +1,39 @@
 FilePond.parse(document.body);
-FilePond.registerPlugin(FilePondPluginImagePreview, FilePondPluginImageExifOrientation, FilePondPluginImageResize);
+FilePond.registerPlugin(
+	FilePondPluginImagePreview,
+	FilePondPluginImageExifOrientation,
+	FilePondPluginImageResize,
+	FilePondPluginFileValidateSize
+);
 
-const imageUrlArr = [];
+const imageUrlArr = [],
+	postButton = document.querySelector('.create-btn'),
+	uploadStatus = document.getElementById('upload-status'),
+	imageUploadArea = document.querySelector('.create-form-images');
+
 let imagesToUploadArr = [],
 	currentUser = null;
 
 const imageUpload = (file, id) => {
-	storageRef.child(`${currentUser.uid}/images/${id}-${file.name}`).put(file).then((snapshot) => {
-		console.log(`${file.name} Uploaded`);
-		snapshot.ref.getDownloadURL().then((url) => {
-			imageUrlArr.push(url);
-			console.log(imageUrlArr);
-		});
+	console.log('derp');
+	const upload = storageRef.child(`${currentUser.uid}/images/${id}-${file.name}`).put(file);
+
+	upload.on('state_changed', (snapshot) => {
+		if (snapshot.state === 'running') {
+			let progress = Math.round(snapshot.bytesTransferred / snapshot.totalBytes * 100);
+			uploadStatus.innerHTML = `UPLOADING IMAGES... ${progress}%`;
+			postButton.disabled = true;
+		}
+	});
+	upload.then((snapshot) => {
+		if (snapshot.state === 'success') {
+			uploadStatus.innerHTML = `IMAGES UPLOADED SUCCESSFULLY`;
+			postButton.disabled = false;
+			snapshot.ref.getDownloadURL().then((url) => {
+				imageUrlArr.push(url);
+				console.log(imageUrlArr);
+			});
+		}
 	});
 };
 
@@ -54,12 +76,14 @@ const createForm = document.getElementById('create-form'),
 	errorMessage = document.getElementById('errors'),
 	imageUploadElement = document.getElementById('images'),
 	pond = FilePond.create(imageUploadElement, {
-		maxFiles: 15,
+		maxFiles: 10,
 		allowReorder: true,
 		name: 'images',
 		required: true,
 		imageResizeTargetHeight: 400,
 		checkValidity: true,
+		allowImageExifOrientation: true,
+		maxFileSize: '5MB',
 
 		onupdatefiles: (files) => {
 			files.map((img) => {
@@ -69,5 +93,9 @@ const createForm = document.getElementById('create-form'),
 					imageUpload(img.file, img.id);
 				}
 			});
+		},
+		onremovefile: (err, file) => {
+			if (err) console.log(err.message);
+			console.log(file.file);
 		}
 	});
