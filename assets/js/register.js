@@ -5,14 +5,16 @@ const registerForm = document.getElementById('register-form'),
 const avatarUpload = (user, file) => {
 	const avatarName = `${user.uid}-avatar.${file.name.split('.')[1]}`;
 
-	const upload = storageRef.child(`${user.uid}/images/${avatarName}`).put(file);
-
-	upload.then((snapshot) => snapshot.ref.getDownloadURL()).then((url) => {
-		user.updateProfile({
-			photoURL: url
+	storageRef
+		.child(`${user.uid}/images/${avatarName}`)
+		.put(file)
+		.then((snapshot) => snapshot.ref.getDownloadURL())
+		.then((url) => {
+			user.updateProfile({
+				photoURL: url
+			});
+			window.location.replace('../../index.html');
 		});
-		window.location.replace('../../index.html');
-	});
 };
 
 registerForm.addEventListener('submit', (e) => {
