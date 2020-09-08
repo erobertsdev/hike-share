@@ -66,8 +66,13 @@ const createForm = document.getElementById('create-form'),
 		imageResizeTargetHeight: 400,
 
 		onaddfile: (err, file) => {
-			console.log(pond.getFile().file); // THAT'S THE FUCKING ONE
+			console.log('onaddfile', pond.getFile().file); // THAT'S THE FUCKING ONE
 			console.log('id', pond.getFile().id);
 			console.log('filename', pond.getFile().filename);
+		},
+		onupdatefiles: (files) => {
+			for (let upload of files) {
+				console.log(upload.file); // BINGO BANGO PUT THIS SHIT IN AN ARRAY THIS IS WHAT GETS UPLOADED
+			}
 		}
 	});

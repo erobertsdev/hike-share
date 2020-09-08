@@ -22,7 +22,7 @@ registerForm.addEventListener('submit', (e) => {
 		password = registerForm['register-password'].value,
 		confirmPassword = registerForm['register-confirm-password'].value,
 		name = registerForm['register-name'].value,
-		avatar = document.getElementById('avatar-upload').files[0];
+		avatar = document.getElementById('avatar-upload').files[0]; // equivalent of upload.file
 
 	if (password !== confirmPassword) {
 		errors.innerHTML = `<h4 class="error-message">Passwords don't match. Please check and try again.</h4>`;
