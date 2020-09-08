@@ -21,7 +21,7 @@ const imageUpload = (file, id) => {
 	upload.on('state_changed', (snapshot) => {
 		if (snapshot.state === 'running') {
 			let progress = Math.round(snapshot.bytesTransferred / snapshot.totalBytes * 100);
-			uploadStatus.innerHTML = `UPLOADING IMAGES... ${progress}%`;
+			uploadStatus.innerHTML = `UPLOADING IMAGE... ${progress}%`;
 			postButton.disabled = true;
 		}
 	});
@@ -95,7 +95,11 @@ const createForm = document.getElementById('create-form'),
 			});
 		},
 		onremovefile: (err, file) => {
-			if (err) console.log(err.message);
-			console.log(file.file);
+			if (err) uploadStatus.innerHTML = `${err.message}`;
+			for (let i = 0; i < imageUrlArr.length; i++) {
+				if (imageUrlArr[i].includes(file.filename)) {
+					imageUrlArr.splice(i, 1);
+				}
+			}
 		}
 	});
