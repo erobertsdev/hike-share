@@ -38,6 +38,7 @@ const imageUpload = (file, id) => {
 };
 
 const addPostToCollection = () => {
+	let date = new Date();
 	db
 		.collection('posts')
 		.add({
@@ -45,8 +46,10 @@ const addPostToCollection = () => {
 			posterAvatar: currentUser.photoURL,
 			name: createForm['name'].value,
 			city: createForm['city'].value,
+			postedDate: `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`,
 			state: createForm['state'].value,
 			distance: createForm['distance'].value,
+			unit: createForm['distance-unit'].value,
 			difficulty: createForm['difficulty'].value,
 			duration: createForm['duration'].value,
 			images: imageUrlArr

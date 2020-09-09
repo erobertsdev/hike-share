@@ -30,6 +30,18 @@
 	justify-items: center;
 }
 
+.hike-card-name {
+	text-transform: capitalize;
+}
+
+.hike-card-state {
+	text-transform: capitalize;
+}
+
+.hike-card-difficulty {
+	text-transform: capitalize;
+}
+
 #footer {
 	text-align: center;
 }

@@ -63,16 +63,16 @@ const renderGallery = async (arr) => {
 	posts.map((hike) => {
 		const card = document.createElement('div');
 		card.classList.add('hike-card');
-		const { name, city, state, distance, difficulty, date, duration, posterAvatar } = hike.data();
+		const { name, city, state, distance, unit, difficulty, postedDate, duration, posterAvatar } = hike.data();
 
 		card.innerHTML = `
                 <div class="hike-card-header">
                     <div class="hike-card-title">
                         <h4 class="hike-card-name">${name}</h4>
-                        <h5 class="hike-card-location">${city}, ${state}</h5>
+                        <h5 class="hike-card-location"><span class="hike-card-city">${city}</span>, ${state}</h5>
                     </div>
                     <div class="hike-card-date">
-                        ${date}
+                        ${postedDate}
                     </div>
                     <div class="hike-card-avatar">
 					<img class="hike-card-avatar-sm" src=${posterAvatar ||
@@ -86,9 +86,9 @@ const renderGallery = async (arr) => {
                 </div>
                 <div class="hike-card-footer">
                     <div class="hike-card-info">
-                        <p>${distance}</p>
-                        <p>${difficulty}</p>
-                        <p>${duration}</p>
+                        <p class="hike-card-distance">${distance} ${unit}</p>
+                        <p class="hike-card-difficulty">${difficulty}</p>
+                        <p class="hike-card-duration">${duration} hours</p>
                     </div>
 				</div>
         `;
