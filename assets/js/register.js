@@ -24,13 +24,8 @@ registerForm.addEventListener('submit', (e) => {
 				});
 			})
 			.then(() => {
-				auth.onAuthStateChanged((user) => {
-					user.updateProfile({
-						displayName: name
-					});
-				});
 				registerForm.reset();
-				window.location.replace('../../index.html');
+				window.location.replace('../account.html');
 			})
 			.catch((err) => {
 				errorMessage.innerHTML = `<h4 class="error-message">${err.message}</h4>`;

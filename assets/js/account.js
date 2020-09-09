@@ -46,6 +46,13 @@ const renderAccountInfo = (user) => {
 			<p class="account-experience">Hiking Experience: ${doc.data().experience}</p>
             <p class="account-created">Joined: ${user.metadata.creationTime}</p>
 		`;
+			if (!user.displayName) {
+				auth.onAuthStateChanged((user) => {
+					user.updateProfile({
+						displayName: doc.data().name
+					});
+				});
+			}
 		});
 	}
 };

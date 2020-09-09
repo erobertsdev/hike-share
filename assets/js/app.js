@@ -9,8 +9,7 @@ const renderNav = (user) => {
 				<ul class="nav-menu-options">
 					<li class="nav-menu-account">
 					<a href="./assets/account.html">
-						<img class="nav-avatar" src="${user.photoURL ||
-							'https://firebasestorage.googleapis.com/v0/b/hike-share-bfa7e.appspot.com/o/blank-avatar.png?alt=media&token=da26fad1-3833-4ca4-9295-a0c421fdce7b'}" /><br>
+						<img class="nav-avatar" src="${user.photoURL || '/../img/blank-avatar.jpg'}" />
 							${user.displayName.replace(/\s.*/, '')}
 						</a>
 					</li>
@@ -31,7 +30,7 @@ const renderNav = (user) => {
 		});
 	} else {
 		navMenu.innerHTML = `
-			<div class="nav-menu-list">
+			<div class="nav-menu-list logged-out">
                     <ul class="nav-menu-options">
                         <li class="nav-menu-option">
                             <a href="./assets/login.html">Login</a>
@@ -85,36 +84,36 @@ const imageCarouselEffect = () => {
 
 const renderGallery = async () => {
 	// get data from Firestore
-	const posts = await db.collection('posts').get().then((snapshot) => {
+	const posts = await db.collection('posts').orderBy('timestamp').get().then((snapshot) => {
 		return snapshot.docs;
 	});
 
-	posts.map((hike) => {
-		const card = document.createElement('div');
-		card.classList.add('hike-card');
-		const {
-			name,
-			city,
-			state,
-			country,
-			distance,
-			unit,
-			difficulty,
-			blurb,
-			postedDate,
-			duration,
-			posterAvatar
-		} = hike.data();
+	if (posts.length === 0) {
+		gallery.innerHTML = `<h2 class="no-posts">NO POSTS FOUND</h2>`;
+	} else {
+		posts.map((hike) => {
+			const card = document.createElement('div');
+			card.classList.add('hike-card');
+			const {
+				name,
+				city,
+				state,
+				country,
+				distance,
+				unit,
+				difficulty,
+				blurb,
+				postedDate,
+				duration,
+				posterAvatar
+			} = hike.data();
 
-		card.innerHTML = `
+			card.innerHTML = `
                 <div class="hike-card-header">
                     <div class="hike-card-title">
                         <h4 class="hike-card-name">${name}</h4>
 						<h5 class="hike-card-location"><span class="hike-card-city">${city}</span>, ${state}</h5>
 						<h5 class="hike-card-country">${country}</h5>
-                    </div>
-                    <div class="hike-card-date">
-                        ${postedDate}
                     </div>
                     <div class="hike-card-avatar">
 					<img class="hike-card-avatar-sm" src=${posterAvatar} onError="this.onerror=null;this.src='../img/blank-avatar.png'>
@@ -128,16 +127,20 @@ const renderGallery = async () => {
                 <div class="hike-card-footer">
 					<div class="hike-card-info">
 						<p class="hike-card-blurb">${blurb}</p>
-                        <p class="hike-card-distance">${distance} ${unit}</p>
-                        <p class="hike-card-difficulty">${difficulty}</p>
-                        <p class="hike-card-duration">${duration} ${duration > 1 ? 'hours' : 'hour'}</p>
+                        <p class="hike-card-distance">Distance: ${distance} ${unit}</p>
+                        <p class="hike-card-difficulty">Difficulty: ${difficulty}</p>
+						<p class="hike-card-duration">Duration: ${duration} ${duration > 1 ? 'hours' : 'hour'}</p>
+						<div class="hike-card-date">
+                        Posted: ${postedDate}
+                    </div>
                     </div>
 				</div>
         `;
 
-		gallery.appendChild(card);
-	});
-	imageCarouselEffect();
+			gallery.appendChild(card);
+		});
+		imageCarouselEffect();
+	}
 };
 
 renderGallery();

@@ -54,6 +54,7 @@ const addPostToCollection = () => {
 			difficulty: createForm['difficulty'].value,
 			duration: createForm['duration'].value,
 			blurb: createForm['blurb'].value,
+			timestamp: Date.now(),
 			images: imageUrlArr
 		})
 		.then(() => {
