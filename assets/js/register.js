@@ -24,6 +24,11 @@ registerForm.addEventListener('submit', (e) => {
 				});
 			})
 			.then(() => {
+				auth.onAuthStateChanged((user) => {
+					user.updateProfile({
+						displayName: name
+					});
+				});
 				registerForm.reset();
 				window.location.replace('../../index.html');
 			})

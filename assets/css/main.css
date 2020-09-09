@@ -6,9 +6,17 @@
 	font-family: Arial, Helvetica, sans-serif;
 }
 
+body {
+	background-color: rgb(238, 238, 238);
+}
+
 #nav {
 	text-align: center;
 	border-bottom: 1px solid black;
+}
+
+div.flickity-viewport {
+	background-color: rgb(238, 238, 238);
 }
 
 .nav-title {

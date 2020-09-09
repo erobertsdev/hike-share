@@ -46,14 +46,7 @@ const renderNav = (user) => {
 };
 
 auth.onAuthStateChanged((user) => {
-	db.collection('users').doc(user.uid).get().then((doc) => {
-		console.log(doc.data().name);
-		user.updateProfile({
-			displayName: doc.data().name
-		});
-	}),
-		renderNav(user),
-		console.log(auth.currentUser);
+	renderNav(user);
 });
 
 const createImgList = (arr) => {
@@ -90,7 +83,7 @@ const imageCarouselEffect = () => {
 	}
 };
 
-const renderGallery = async (arr) => {
+const renderGallery = async () => {
 	// get data from Firestore
 	const posts = await db.collection('posts').get().then((snapshot) => {
 		return snapshot.docs;
@@ -99,20 +92,32 @@ const renderGallery = async (arr) => {
 	posts.map((hike) => {
 		const card = document.createElement('div');
 		card.classList.add('hike-card');
-		const { name, city, state, distance, unit, difficulty, postedDate, duration, posterAvatar } = hike.data();
+		const {
+			name,
+			city,
+			state,
+			country,
+			distance,
+			unit,
+			difficulty,
+			blurb,
+			postedDate,
+			duration,
+			posterAvatar
+		} = hike.data();
 
 		card.innerHTML = `
                 <div class="hike-card-header">
                     <div class="hike-card-title">
                         <h4 class="hike-card-name">${name}</h4>
-                        <h5 class="hike-card-location"><span class="hike-card-city">${city}</span>, ${state}</h5>
+						<h5 class="hike-card-location"><span class="hike-card-city">${city}</span>, ${state}</h5>
+						<h5 class="hike-card-country">${country}</h5>
                     </div>
                     <div class="hike-card-date">
                         ${postedDate}
                     </div>
                     <div class="hike-card-avatar">
-					<img class="hike-card-avatar-sm" src=${posterAvatar ||
-						'https://firebasestorage.googleapis.com/v0/b/hike-share-bfa7e.appspot.com/o/blank-avatar.png?alt=media&token=da26fad1-3833-4ca4-9295-a0c421fdce7b'}>
+					<img class="hike-card-avatar-sm" src=${posterAvatar} onError="this.onerror=null;this.src='../img/blank-avatar.png'>
                     </div>
                 </div>
 				<div class="hike-card-image">
@@ -121,10 +126,11 @@ const renderGallery = async (arr) => {
 						</div>
                 </div>
                 <div class="hike-card-footer">
-                    <div class="hike-card-info">
+					<div class="hike-card-info">
+						<p class="hike-card-blurb">${blurb}</p>
                         <p class="hike-card-distance">${distance} ${unit}</p>
                         <p class="hike-card-difficulty">${difficulty}</p>
-                        <p class="hike-card-duration">${duration} hours</p>
+                        <p class="hike-card-duration">${duration} ${duration > 1 ? 'hours' : 'hour'}</p>
                     </div>
 				</div>
         `;

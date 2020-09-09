@@ -47,11 +47,13 @@ const addPostToCollection = () => {
 			name: createForm['name'].value,
 			city: createForm['city'].value,
 			postedDate: `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`,
-			state: createForm['state'].value,
+			state: createForm['state'].value || '',
+			country: createForm['country'].value,
 			distance: createForm['distance'].value,
 			unit: createForm['distance-unit'].value,
 			difficulty: createForm['difficulty'].value,
 			duration: createForm['duration'].value,
+			blurb: createForm['blurb'].value,
 			images: imageUrlArr
 		})
 		.then(() => {
