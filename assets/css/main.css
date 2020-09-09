@@ -3,7 +3,7 @@
 	padding: 0;
 	font-size: 16px;
 	box-sizing: border-box;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: 'Cairo', Arial, Helvetica, sans-serif;
 	font-smooth: 2em;
 }
 
@@ -24,15 +24,21 @@ body {
 	height: 100px;
 }
 
+.fa-tree {
+	font-size: 3rem;
+}
+
 div.flickity-viewport {
 	background-color: rgb(238, 238, 238);
 }
 
 .nav-title {
+	width: fit-content;
 	color: darkolivegreen;
-	padding-top: 20px;
+	padding: 10px;
 	margin-left: 30px;
 	font-size: 3rem;
+	transform: translateY(-10px);
 }
 
 .nav-avatar {
@@ -45,11 +51,11 @@ div.flickity-viewport {
 
 .nav-menu-list {
 	float: right;
-	transform: translateY(-20px);
+	transform: translateY(-60px);
 }
 
 .nav-menu-list.logged-out {
-	transform: translateY(1px);
+	transform: translateY(-40px);
 }
 
 .nav-menu-options {

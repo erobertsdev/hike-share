@@ -31,15 +31,15 @@ const renderNav = (user) => {
 	} else {
 		navMenu.innerHTML = `
 			<div class="nav-menu-list logged-out">
-                    <ul class="nav-menu-options">
-                        <li class="nav-menu-option">
-                            <a href="./assets/login.html">Login</a>
-                        </li>
-                        <li class="nav-menu-option">
-                            <a href="./assets/register.html">Register</a>
-                        </li>
-                    </ul>
-                </div>
+				<ul class="nav-menu-options">
+					<li class="nav-menu-option">
+						<a href="./assets/login.html">Login</a>
+					</li>
+					<li class="nav-menu-option">
+						<a href="./assets/register.html">Register</a>
+					</li>
+				</ul>
+			</div>
 		`;
 	}
 };
@@ -82,6 +82,11 @@ const imageCarouselEffect = () => {
 	}
 };
 
+const avatarPopup = () => {
+	let popup = document.getElementById('avatar-popup');
+	popup.classList.toggle('show');
+};
+
 const renderGallery = async () => {
 	// get data from Firestore
 	const posts = await db.collection('posts').orderBy('timestamp', 'desc').get().then((snapshot) => {
@@ -116,8 +121,13 @@ const renderGallery = async () => {
 						<h5 class="hike-card-location"><span class="hike-card-city">${city}</span>, ${state}</h5>
 						<h5 class="hike-card-country">${country}</h5>
                     </div>
-                    <div class="hike-card-avatar">
-					<img class="hike-card-avatar-sm" src=${posterAvatar} onError="this.onerror=null;this.src='../img/blank-avatar.png'>
+                    <div class="hike-card-avatar popup" onclick="avatarPopup()">
+						<img class="hike-card-avatar-sm" src=${posterAvatar} onError="this.onerror=null;this.src='../img/blank-avatar.png'" />
+						<span class="avatar-info popuptext" id="avatar-popup">
+						<p class="avatar-name">Elias Roberts</p>
+						<p class="avatar-experience">Deet 2</p>
+						<p class="avatar-posts">Deet 3</p>
+						</span>
                     </div>
                 </div>
 				<div class="hike-card-image">
@@ -134,8 +144,8 @@ const renderGallery = async () => {
 				? 'hours'
 				: 'hour'}</p>
 						<div class="hike-card-date">
-                        <span class="bold">Posted:</span> ${postedDate}
-                    </div>
+                        	Posted: ${postedDate}
+                    	</div>
                     </div>
 				</div>
         `;
