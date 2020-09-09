@@ -3,10 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./plugins/filepond/filepond.css" rel="stylesheet">
+    <link href="./plugins/filepond/filepond-plugin-image-preview.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/account.css">
     <title>Hike Share | Account</title>
 </head>
 <body>
+    <h1 class="account-title">Account Overview</h1>
+    <div id="errors"></div>
+    <div id="avatar-status"></div>
+    <form id="avatar-form">
+        <div class="avatar-field">
+            <label for="avatar">Upload/Replace Profile Picture:</label>
+            <input type="file" id="avatar-upload" />
+        </div>
+    </form>
     <section id="account">
     </section>
 
@@ -15,6 +26,11 @@
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
     <script src="./js/firebase.js"></script>
+    <script src="./plugins/filepond/filepond-plugin-image-exif-orientation.js"></script>
+    <script src="./plugins/filepond/filepond-plugin-image-preview.js"></script>
+    <script src="./plugins/filepond/filepond-plugin-image-resize.js"></script>
+    <script src="./plugins/filepond/filepond-plugin-file-validate-size.js"></script>
+    <script src="./plugins/filepond/filepond.js"></script>
     <script src="./js/account.js"></script>
 </body>
 </html>

@@ -1,7 +1,37 @@
-/* TODOS:
-    Update user photoURL SOMEWHERE, SOMEHOW!!!!
-*/
-const accountInfoDOM = document.getElementById('account');
+FilePond.parse(document.body);
+FilePond.registerPlugin(
+	FilePondPluginImagePreview,
+	FilePondPluginImageExifOrientation,
+	FilePondPluginImageResize,
+	FilePondPluginFileValidateSize
+);
+
+const avatarStatus = document.getElementById('avatar-status'),
+	accountInfoDOM = document.getElementById('account');
+
+let currentUser = null;
+
+const avatarUpload = (user, file) => {
+	const avatarName = `${user.uid}-avatar.${file.name.split('.')[1]}`;
+
+	const upload = storageRef.child(`${user.uid}/images/${avatarName}`).put(file);
+
+	upload.on('state_changed', (snapshot) => {
+		if (snapshot.state === 'running') {
+			avatarStatus.innerHTML = `UPLOADING IMAGE... ${progress}%`;
+		}
+	});
+	upload.then((snapshot) => {
+		if (snapshot.state === 'success') {
+			snapshot.ref.getDownloadURL().then((url) => {
+				user.updateProfile({
+					photoURL: url
+				});
+				location.reload();
+			});
+		}
+	});
+};
 
 const renderAccountInfo = (user) => {
 	if (!user) {
@@ -9,16 +39,32 @@ const renderAccountInfo = (user) => {
 	} else {
 		db.collection('users').doc(user.uid).get().then((doc) => {
 			accountInfoDOM.innerHTML = `
-            <h1 class="account-title">Account Overview</h1>
-            <img class="account-avatar" src=${user.photoURL || '../assets/img/blank-avatar.png'} alt="avatar" />
+			<img class="account-avatar" src=${user.photoURL || '../assets/img/blank-avatar.png'} alt="avatar" />
             <p class="account-name">${doc.data().name}</p>
             <p class="account-email">${user.email}</p>
             <p class="account-created">Joined: ${user.metadata.creationTime}</p>
-        `;
+		`;
 		});
 	}
 };
 
 auth.onAuthStateChanged((user) => {
+	currentUser = user;
 	renderAccountInfo(user);
 });
+
+const avatarForm = document.getElementById('avatar-form'),
+	imageUploadElement = document.getElementById('avatar-upload'),
+	errorMessage = document.getElementById('errors'),
+	pond = FilePond.create(imageUploadElement, {
+		name: 'avatar',
+		imageResizeTargetHeight: 250,
+		checkValidity: true,
+		allowImageExifOrientation: true,
+		maxFileSize: '5MB',
+
+		onaddfile: (err, file) => {
+			if (err) errorMessage.innerHTML = `${err.message}`;
+			avatarUpload(currentUser, file.file);
+		}
+	});

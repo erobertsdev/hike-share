@@ -75,7 +75,8 @@ const renderGallery = async (arr) => {
                         ${date}
                     </div>
                     <div class="hike-card-avatar">
-					<img class="hike-card-avatar-sm" src=${posterAvatar || '../assets/img/blank-avatar.png'}>
+					<img class="hike-card-avatar-sm" src=${posterAvatar ||
+						'https://firebasestorage.googleapis.com/v0/b/hike-share-bfa7e.appspot.com/o/blank-avatar.png?alt=media&token=da26fad1-3833-4ca4-9295-a0c421fdce7b'}>
                     </div>
                 </div>
 				<div class="hike-card-image">
