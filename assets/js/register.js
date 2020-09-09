@@ -19,7 +19,8 @@ registerForm.addEventListener('submit', (e) => {
 			.then((cred) => {
 				return db.collection('users').doc(cred.user.uid).set({
 					name,
-					experience
+					experience,
+					id: cred.user.uid
 				});
 			})
 			.then(() => {

@@ -22,6 +22,10 @@
 	padding-right: 20px;
 }
 
+.nav-avatar {
+	height: 50px;
+}
+
 #main {
 	width: 100vw;
 	column-gap: 20px;

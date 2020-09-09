@@ -1,23 +1,63 @@
+// replace(/\s.*/, '') -- first name
+
 const gallery = document.getElementById('main'),
-	logout = document.getElementById('logout'),
-	loggedOutLinks = document.querySelectorAll('.logged-out'),
-	loggedInLinks = document.querySelectorAll('.logged-in');
+	navMenu = document.querySelector('.nav-menu');
+// loggedOutLinks = document.querySelectorAll('.logged-out'),
+// loggedInLinks = document.querySelectorAll('.logged-in');
 
 const renderNav = (user) => {
 	if (user) {
-		for (let link of loggedInLinks) {
-			link.classList.remove('hidden');
-		}
+		console.log(user);
+		navMenu.innerHTML = `
+			<div class="nav-menu-list">
+				<ul class="nav-menu-options">
+					<li class="nav-menu-account">
+					<a href="./assets/account.html">
+						<img class="nav-avatar" src="${user.photoURL ||
+							'https://firebasestorage.googleapis.com/v0/b/hike-share-bfa7e.appspot.com/o/blank-avatar.png?alt=media&token=da26fad1-3833-4ca4-9295-a0c421fdce7b'}" /><br>
+							${user.displayName.replace(/\s.*/, '')}
+						</a>
+					</li>
+					<li class="nav-menu-option">
+						<a href="./assets/create-post.html">Create Post</a>
+					</li>
+					<li class="nav-menu-option">
+						<a href="#" id="logout">Log Out</a>
+					</li>
+				</ul>
+			</div>
+		`;
+
+		// Logout user
+		const logout = document.getElementById('logout');
+		logout.addEventListener('click', (e) => {
+			auth.signOut().then(() => location.reload());
+		});
 	} else {
-		for (let link of loggedOutLinks) {
-			link.classList.remove('hidden');
-		}
+		navMenu.innerHTML = `
+			<div class="nav-menu-list">
+                    <ul class="nav-menu-options">
+                        <li class="nav-menu-option">
+                            <a href="./assets/login.html">Login</a>
+                        </li>
+                        <li class="nav-menu-option">
+                            <a href="./assets/register.html">Register</a>
+                        </li>
+                    </ul>
+                </div>
+		`;
 	}
 };
 
 auth.onAuthStateChanged((user) => {
-	renderNav(user);
-	console.log(auth.currentUser);
+	db.collection('users').doc(user.uid).get().then((doc) => {
+		console.log(doc.data().name);
+		user.updateProfile({
+			displayName: doc.data().name
+		});
+	}),
+		renderNav(user),
+		console.log(auth.currentUser);
 });
 
 const createImgList = (arr) => {
@@ -99,8 +139,3 @@ const renderGallery = async (arr) => {
 };
 
 renderGallery();
-
-// Logout user
-logout.addEventListener('click', (e) => {
-	auth.signOut().then(() => location.reload());
-});
