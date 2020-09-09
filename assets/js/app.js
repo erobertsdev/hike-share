@@ -1,9 +1,5 @@
-// replace(/\s.*/, '') -- first name
-
 const gallery = document.getElementById('main'),
 	navMenu = document.querySelector('.nav-menu');
-// loggedOutLinks = document.querySelectorAll('.logged-out'),
-// loggedInLinks = document.querySelectorAll('.logged-in');
 
 const renderNav = (user) => {
 	if (user) {
