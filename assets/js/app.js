@@ -84,7 +84,7 @@ const imageCarouselEffect = () => {
 
 const renderGallery = async () => {
 	// get data from Firestore
-	const posts = await db.collection('posts').orderBy('timestamp').get().then((snapshot) => {
+	const posts = await db.collection('posts').orderBy('timestamp', 'desc').get().then((snapshot) => {
 		return snapshot.docs;
 	});
 
@@ -111,7 +111,8 @@ const renderGallery = async () => {
 			card.innerHTML = `
                 <div class="hike-card-header">
                     <div class="hike-card-title">
-                        <h4 class="hike-card-name">${name}</h4>
+						<h4 class="hike-card-name">${name}</h4>
+						<hr class="hike-card-hr">
 						<h5 class="hike-card-location"><span class="hike-card-city">${city}</span>, ${state}</h5>
 						<h5 class="hike-card-country">${country}</h5>
                     </div>
@@ -127,11 +128,13 @@ const renderGallery = async () => {
                 <div class="hike-card-footer">
 					<div class="hike-card-info">
 						<p class="hike-card-blurb">${blurb}</p>
-                        <p class="hike-card-distance">Distance: ${distance} ${unit}</p>
-                        <p class="hike-card-difficulty">Difficulty: ${difficulty}</p>
-						<p class="hike-card-duration">Duration: ${duration} ${duration > 1 ? 'hours' : 'hour'}</p>
+                        <p class="hike-card-distance"><span class="bold">Distance:</span> ${distance} ${unit}</p>
+                        <p class="hike-card-difficulty"><span class="bold">Difficulty:</span> ${difficulty}</p>
+						<p class="hike-card-duration"><span class="bold">Duration:</span> ${duration} ${duration > 1
+				? 'hours'
+				: 'hour'}</p>
 						<div class="hike-card-date">
-                        Posted: ${postedDate}
+                        <span class="bold">Posted:</span> ${postedDate}
                     </div>
                     </div>
 				</div>

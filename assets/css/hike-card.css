@@ -3,22 +3,42 @@
 	border-bottom: 1px solid gray;
 }
 
-.hike-card-footer {
-	margin-top: 40px;
-}
-
 .hike-card-avatar-sm {
-	height: 75px;
-	width: 75px;
-	border: 1px solid black;
+	height: 50px;
+	border: 2px solid darkolivegreen;
 	border-radius: 50%;
 	margin-top: 10px;
 }
 
+.hike-card-hr {
+	margin: 5px auto;
+	width: 200px;
+}
+
 .hike-card-name {
+	color: darkolivegreen;
 	margin-top: 20px;
 }
 
 .hike-card-info {
 	margin-bottom: 20px;
+}
+
+.hike-card-location,
+.hike-card-country {
+	font-weight: lighter;
+}
+
+.hike-card-footer {
+	margin-top: 40px;
+}
+
+.hike-card-blurb {
+	padding: 10px;
+	margin: 10px auto;
+	border: 1px solid black;
+	color: #5f5f5f;
+	font-weight: 500;
+	border-radius: 10px;
+	width: fit-content;
 }

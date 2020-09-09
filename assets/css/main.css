@@ -11,6 +11,10 @@ a {
 	text-decoration: none;
 }
 
+a:visited {
+	color: black;
+}
+
 body {
 	background-color: rgb(238, 238, 238);
 }
@@ -25,6 +29,7 @@ div.flickity-viewport {
 }
 
 .nav-title {
+	color: darkolivegreen;
 	padding-top: 20px;
 	margin-left: 30px;
 	font-size: 3rem;
@@ -58,6 +63,24 @@ div.flickity-viewport {
 	display: inline;
 }
 
+.nav-menu-option {
+	color: black;
+	transition: all .3s;
+}
+
+.nav-menu-option:hover {
+	background-color: lightgray;
+	filter: brightness(120%);
+}
+
+.nav-menu-account {
+	transition: all .3s;
+}
+
+.nav-menu-account:hover {
+	filter: brightness(120%);
+}
+
 #main {
 	width: 100vw;
 	column-gap: 20px;
@@ -67,7 +90,9 @@ div.flickity-viewport {
 }
 
 .hike-card-name {
+	font-size: 2rem;
 	text-transform: capitalize;
+	margin-bottom: 5px;
 }
 
 .hike-card-state {
@@ -84,4 +109,8 @@ div.flickity-viewport {
 
 .hidden {
 	display: none;
+}
+
+.bold {
+	font-weight: bold;
 }
