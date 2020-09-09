@@ -1,3 +1,16 @@
+* {
+	text-align: center;
+}
+
 .account-avatar {
 	height: 150px;
+}
+
+.account-experience {
+	text-transform: capitalize;
+}
+
+#avatar-upload {
+	width: 250px;
+	margin: 20px auto;
 }

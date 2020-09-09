@@ -8,7 +8,8 @@ registerForm.addEventListener('submit', (e) => {
 	const email = registerForm['register-email'].value,
 		password = registerForm['register-password'].value,
 		confirmPassword = registerForm['register-confirm-password'].value,
-		name = registerForm['register-name'].value;
+		name = registerForm['register-name'].value,
+		experience = registerForm['experience'].value;
 
 	if (password !== confirmPassword) {
 		errors.innerHTML = `<h4 class="error-message">Passwords don't match. Please check and try again.</h4>`;
@@ -17,7 +18,8 @@ registerForm.addEventListener('submit', (e) => {
 			.createUserWithEmailAndPassword(email, password)
 			.then((cred) => {
 				return db.collection('users').doc(cred.user.uid).set({
-					name: name
+					name,
+					experience
 				});
 			})
 			.then(() => {

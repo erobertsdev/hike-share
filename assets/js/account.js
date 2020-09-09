@@ -18,6 +18,7 @@ const avatarUpload = (user, file) => {
 
 	upload.on('state_changed', (snapshot) => {
 		if (snapshot.state === 'running') {
+			let progress = Math.round(snapshot.bytesTransferred / snapshot.totalBytes * 100);
 			avatarStatus.innerHTML = `UPLOADING IMAGE... ${progress}%`;
 		}
 	});
@@ -41,7 +42,8 @@ const renderAccountInfo = (user) => {
 			accountInfoDOM.innerHTML = `
 			<img class="account-avatar" src=${user.photoURL || '../assets/img/blank-avatar.png'} alt="avatar" />
             <p class="account-name">${doc.data().name}</p>
-            <p class="account-email">${user.email}</p>
+			<p class="account-email">${user.email}</p>
+			<p class="account-experience">Hiking Experience: ${doc.data().experience}</p>
             <p class="account-created">Joined: ${user.metadata.creationTime}</p>
 		`;
 		});
@@ -62,6 +64,7 @@ const avatarForm = document.getElementById('avatar-form'),
 		checkValidity: true,
 		allowImageExifOrientation: true,
 		maxFileSize: '5MB',
+		labelIdle: 'Upload/Replace Profile Image',
 
 		onaddfile: (err, file) => {
 			if (err) errorMessage.innerHTML = `${err.message}`;
