@@ -1,6 +1,8 @@
 const gallery = document.getElementById('main'),
 	navMenu = document.querySelector('.nav-menu');
 
+let currentUser = null;
+
 const renderNav = (user) => {
 	if (user) {
 		console.log(user);
@@ -45,6 +47,7 @@ const renderNav = (user) => {
 };
 
 auth.onAuthStateChanged((user) => {
+	currentUser = user;
 	renderNav(user);
 });
 
@@ -152,8 +155,12 @@ const renderGallery = async () => {
 				? 'hours'
 				: 'hour'}</p>
 						<div class="hike-card-date">
-                        	Posted: ${postedDate}
-                    	</div>
+							Posted: ${postedDate}
+							<br>
+							${currentUser.uid === postedBy
+								? `<span id="delete-post-${hike.id}"><i class="far fa-trash-alt"></i></span>`
+								: `<span></span>`}
+						</div>
                     </div>
 				</div>
         `;
