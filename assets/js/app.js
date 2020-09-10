@@ -82,11 +82,6 @@ const imageCarouselEffect = () => {
 	}
 };
 
-const avatarPopup = () => {
-	let popup = document.getElementById('avatar-popup');
-	popup.classList.toggle('show');
-};
-
 const renderGallery = async () => {
 	// get data from Firestore
 	const posts = await db.collection('posts').orderBy('timestamp', 'desc').get().then((snapshot) => {
@@ -96,7 +91,8 @@ const renderGallery = async () => {
 	if (posts.length === 0) {
 		gallery.innerHTML = `<h2 class="no-posts">NO POSTS FOUND</h2>`;
 	} else {
-		posts.map((hike) => {
+		// Get posts
+		posts.map(async (hike) => {
 			const card = document.createElement('div');
 			card.classList.add('hike-card');
 			const {
@@ -110,8 +106,18 @@ const renderGallery = async () => {
 				blurb,
 				postedDate,
 				duration,
-				posterAvatar
+				posterAvatar,
+				postedBy
 			} = hike.data();
+
+			// Get info on person who made post
+			const poster = await db.collection('users').doc(postedBy).get().then((doc) => {
+				console.log(doc.data());
+				return doc.data();
+			});
+
+			// Info on person who made post
+			const { name: posterName, experience } = poster;
 
 			card.innerHTML = `
                 <div class="hike-card-header">
@@ -121,12 +127,14 @@ const renderGallery = async () => {
 						<h5 class="hike-card-location"><span class="hike-card-city">${city}</span>, ${state}</h5>
 						<h5 class="hike-card-country">${country}</h5>
                     </div>
-                    <div class="hike-card-avatar popup" onclick="avatarPopup()">
+                    <div class="hike-card-avatar popup" id=${hike.id}>
 						<img class="hike-card-avatar-sm" src=${posterAvatar} onError="this.onerror=null;this.src='../img/blank-avatar.png'" />
-						<span class="avatar-info popuptext" id="avatar-popup">
-						<p class="avatar-name">Elias Roberts</p>
-						<p class="avatar-experience">Deet 2</p>
-						<p class="avatar-posts">Deet 3</p>
+						<span class="avatar-info popuptext" id="${hike.id}-popup"}>
+						<p class="avatar-name">${posterName}</p>
+						<hr class="avatar-hr">
+						<div class="avatar-stats">
+						<p class="avatar-experience">Experience Level: ${experience}</p>
+						</div>
 						</span>
                     </div>
                 </div>
@@ -149,8 +157,12 @@ const renderGallery = async () => {
                     </div>
 				</div>
         `;
-
 			gallery.appendChild(card);
+
+			// Info popup when avatar is clicked
+			document.getElementById(hike.id).addEventListener('click', (e) => {
+				document.getElementById(`${hike.id}-popup`).classList.toggle('show');
+			});
 		});
 		imageCarouselEffect();
 	}
