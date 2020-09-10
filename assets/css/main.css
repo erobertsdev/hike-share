@@ -105,6 +105,10 @@ div.flickity-viewport {
 	text-transform: capitalize;
 }
 
+.hike-card-country {
+	transform: translateY(-5px);
+}
+
 .hike-card-difficulty {
 	text-transform: capitalize;
 }

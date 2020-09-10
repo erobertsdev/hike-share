@@ -58,13 +58,8 @@
 }
 
 .popup {
-	transition: all .5s;
 	position: relative;
 	display: inline-block;
-}
-
-.popup:hover {
-	filter: brightness(120%);
 }
 
 /* The actual popup (appears on top) */
@@ -110,6 +105,11 @@
 
 .avatar-posts {
 	font-size: .7rem;
+}
+
+.hike-card-avatar-sm:hover {
+	filter: brightness(120%);
+	transition: all .5s;
 }
 
 /* .avatar-stats {
