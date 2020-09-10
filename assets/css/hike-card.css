@@ -58,9 +58,13 @@
 }
 
 .popup {
+	transition: all .5s;
 	position: relative;
 	display: inline-block;
-	cursor: pointer;
+}
+
+.popup:hover {
+	filter: brightness(120%);
 }
 
 /* The actual popup (appears on top) */
@@ -71,7 +75,6 @@
 	color: #fff;
 	text-align: center;
 	border-radius: 6px;
-	/* padding: 8px 0; */
 	position: absolute;
 	z-index: 1;
 	bottom: 12%;

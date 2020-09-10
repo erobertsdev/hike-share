@@ -9,7 +9,7 @@ const renderNav = (user) => {
 				<ul class="nav-menu-options">
 					<li class="nav-menu-account">
 					<a href="./assets/account.html">
-						<img class="nav-avatar" src="${user.photoURL || '/../img/blank-avatar.jpg'}" />
+						<img class="nav-avatar" src="${user.photoURL || '../assets/img/blank-avatar.png'}" />
 							${user.displayName.replace(/\s.*/, '')}
 						</a>
 					</li>
@@ -128,12 +128,12 @@ const renderGallery = async () => {
 						<h5 class="hike-card-country">${country}</h5>
                     </div>
                     <div class="hike-card-avatar popup" id=${hike.id}>
-						<img class="hike-card-avatar-sm" src=${posterAvatar} onError="this.onerror=null;this.src='../img/blank-avatar.png'" />
+						<img class="hike-card-avatar-sm" src=${posterAvatar} onError="this.onerror=null;this.src='../assets/img/blank-avatar.png'" />
 						<span class="avatar-info popuptext" id="${hike.id}-popup"}>
 						<p class="avatar-name">${posterName}</p>
 						<hr class="avatar-hr">
 						<div class="avatar-stats">
-						<p class="avatar-experience">Experience Level: ${experience}</p>
+						<p class="avatar-experience">Hiking Experience: ${experience}</p>
 						</div>
 						</span>
                     </div>
@@ -160,7 +160,10 @@ const renderGallery = async () => {
 			gallery.appendChild(card);
 
 			// Info popup when avatar is clicked
-			document.getElementById(hike.id).addEventListener('click', (e) => {
+			document.getElementById(hike.id).addEventListener('mouseenter', () => {
+				document.getElementById(`${hike.id}-popup`).classList.toggle('show');
+			});
+			document.getElementById(hike.id).addEventListener('mouseleave', () => {
 				document.getElementById(`${hike.id}-popup`).classList.toggle('show');
 			});
 			imageCarouselEffect();
