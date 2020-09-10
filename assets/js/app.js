@@ -163,8 +163,8 @@ const renderGallery = async () => {
 			document.getElementById(hike.id).addEventListener('click', (e) => {
 				document.getElementById(`${hike.id}-popup`).classList.toggle('show');
 			});
+			imageCarouselEffect();
 		});
-		imageCarouselEffect();
 	}
 };
 
