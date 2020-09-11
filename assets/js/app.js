@@ -1,11 +1,12 @@
 const gallery = document.getElementById('main'),
 	navMenu = document.querySelector('.nav-menu');
 
-let currentUser = null;
+let currentUser = {
+	id: 'notLoggedIn'
+};
 
 const renderNav = (user) => {
 	if (user) {
-		console.log(user);
 		navMenu.innerHTML = `
 			<div class="nav-menu-list">
 				<ul class="nav-menu-options">
@@ -47,8 +48,12 @@ const renderNav = (user) => {
 };
 
 auth.onAuthStateChanged((user) => {
-	currentUser = user;
-	renderNav(user);
+	if (user) {
+		currentUser = user;
+		renderNav(user);
+	} else {
+		renderNav(user);
+	}
 });
 
 const createImgList = (arr) => {
@@ -172,7 +177,7 @@ const renderGallery = async () => {
 						<div class="hike-card-date">
 							Posted: ${postedDate}
 							<br>
-							${currentUser.uid === postedBy
+							${currentUser.id === postedBy
 								? `<span id="${hike.id}-delete"><i class="far fa-trash-alt"></i></span>`
 								: `<span id="${hike.id}-delete"></span>`}
 							<br>
@@ -184,7 +189,7 @@ const renderGallery = async () => {
 						</div>
                     </div>
 				</div>
-        `;
+		`;
 			gallery.appendChild(card);
 
 			// Info popup when avatar is clicked

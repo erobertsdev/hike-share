@@ -44,6 +44,7 @@ div.flickity-viewport {
 .nav-avatar {
 	border: 1px solid black;
 	height: 40px;
+	width: 40px;
 	border-radius: 50%;
 	margin-right: 10px;
 	transform: translateY(15px);
