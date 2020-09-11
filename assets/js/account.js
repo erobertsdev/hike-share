@@ -39,34 +39,30 @@ const deleteAccount = (userId) => {
 	// retrieve posts made by userId and delete
 	db.collection('posts').where('postedBy', '==', userId).get().then((snapshot) => {
 		snapshot.forEach((doc) => {
-			// Map over images in post and delete
+			// Map over images in post and delete from firebase storage
 			let images = doc.data().images; // Images array
 			images.map((img) => {
-				// trims img down to just images/[filename]
-				// let imgName = img.substr(img.indexOf('%2F') + 3, img.indexOf('?') - (img.indexOf('%2F') + 3));
-				// imgName = imgName.replace('%20', ' ');
-				// deletes image
-				// let test = storageRef.child(userId).child(`${imgName}`).delete();
-				let test = storage.refFromURL(img).delete();
+				storage.refFromURL(img).delete();
 			});
-			// doc.delete().catch((err) => {
-			// 	document.getElementById('errors').innerHTML = `Error removing account: ${err}`;
-			// });
+			// delete posts made by user from firestore
+			doc.ref.delete().catch((err) => {
+				document.getElementById('errors').innerHTML = `Error: ${err}`;
+			});
 		});
 	});
 	// Delete account from Firestore
-	// db
-	// 	.collection('users')
-	// 	.doc(userId)
-	// 	.delete()
-	// 	.then(() => {
-	// 		// delete account from authentication and send to homepage
-	// 		let userToDelete = auth.currentUser;
-	// 		userToDelete.delete().then(() => window.location.replace('../../index.html'));
-	// 	})
-	// 	.catch((err) => {
-	// 		document.getElementById('errors').innerHTML = `Error removing account: ${err}`;
-	// 	});
+	db
+		.collection('users')
+		.doc(userId)
+		.delete()
+		.then(() => {
+			// delete account from authentication and send to homepage
+			let userToDelete = auth.currentUser;
+			userToDelete.delete().then(() => window.location.replace('../../index.html'));
+		})
+		.catch((err) => {
+			document.getElementById('errors').innerHTML = `Error removing account: ${err}`;
+		});
 };
 
 const renderAccountInfo = (user) => {
