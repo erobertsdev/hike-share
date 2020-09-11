@@ -25,10 +25,11 @@ const avatarUpload = (user, file) => {
 	upload.then((snapshot) => {
 		if (snapshot.state === 'success') {
 			snapshot.ref.getDownloadURL().then((url) => {
-				user.updateProfile({
-					photoURL: url
-				});
-				location.reload();
+				user
+					.updateProfile({
+						photoURL: url
+					})
+					.then(() => location.reload());
 			});
 		}
 	});
