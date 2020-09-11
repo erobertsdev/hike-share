@@ -34,26 +34,66 @@ const avatarUpload = (user, file) => {
 	});
 };
 
+const deleteAccount = (userId) => {
+	// Permission is validated server side
+	db
+		.collection('users')
+		.doc(userId)
+		.delete()
+		.then(() => {
+			location.reload();
+		})
+		.catch((err) => {
+			document.getElementById('errors').innerHTML = `Error removing account: ${err}`;
+		});
+};
+
 const renderAccountInfo = (user) => {
 	if (!user) {
-		accountInfoDOM.innerHTML = `You are not logged in. Please login and try again.`;
+		accountInfoDOM.innerHTML = `You are not logged in. Please 
+		<a href="../register.html">create an account</a> or <a href="../login.html">login</a>.`;
 	} else {
 		db.collection('users').doc(user.uid).get().then((doc) => {
+			const { name, experience, id } = doc.data();
+
 			accountInfoDOM.innerHTML = `
 			<img class="account-avatar" src=${user.photoURL || '../assets/img/blank-avatar.png'} alt="avatar" />
-            <p class="account-name">${doc.data().name}</p>
+            <p class="account-name">${name}</p>
 			<p class="account-email">${user.email} (Only visible to you)</p>
-			<p class="account-experience">Hiking Experience: ${doc.data().experience} <i class="far fa-edit"></i></p>
+			<p class="account-experience">Hiking Experience: ${experience} <i class="far fa-edit"></i></p>
 			<p class="account-created">Joined: ${user.metadata.creationTime}</p>
 			<button id="delete-account-btn">Delete Account</button>
+			<div id="delete-account" class="hidden">
+			<div id="errors"></div>
+			<p class="delete-confirm-text">Are you sure? This account can't be recovered.</p>
+			<button id="delete-yes" class="delete-button">DELETE</button>
+			<button id="delete-no" class="cancel-button">CANCEL</button>
+		</div>
 		`;
 			if (!user.displayName) {
 				auth.onAuthStateChanged((user) => {
 					user.updateProfile({
-						displayName: doc.data().name
+						displayName: name
 					});
 				});
 			}
+
+			const deleteButton = document.getElementById('delete-account-btn'),
+				deleteConfirm = document.getElementById('delete-account'),
+				deleteYes = document.getElementById('delete-yes'),
+				deleteNo = document.getElementById('delete-no');
+
+			deleteButton.addEventListener('click', () => {
+				deleteConfirm.classList.remove('hidden');
+				deleteConfirm.style.display = 'inherit';
+			});
+
+			deleteYes.addEventListener('click', () => deleteAccount(id));
+
+			deleteNo.addEventListener('click', () => {
+				deleteConfirm.classList.add('hidden');
+				deleteConfirm.style.display = 'none';
+			});
 		});
 	}
 };

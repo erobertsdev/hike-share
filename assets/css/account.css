@@ -59,6 +59,17 @@ a:visited {
 	color: red;
 }
 
+#delete-yes {
+	padding: 0 5px;
+	color: darkred;
+	margin-right: 30px;
+}
+
+#delete-no {
+	padding: 0 5px;
+	color: dodgerblue;
+}
+
 #return-btn {
 	padding: 5px 10px;
 	margin: 10px auto;
