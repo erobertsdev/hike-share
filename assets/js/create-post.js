@@ -15,24 +15,33 @@ let imagesToUploadArr = [],
 	currentUser = null;
 
 const imageUpload = (file, id) => {
-	const upload = storageRef.child(`${currentUser.uid}/images/${id}-${file.name}`).put(file);
+	console.log(file);
+	if (file.size > 550000) {
+		uploadStatus.innerHTML = `${file.name} filesize is over 5MB, cannot upload.`;
+		return;
+	} else if (file.type !== 'image/jpeg' || file.type !== 'image/png') {
+		uploadStatus.innerHTML = `${file.name} invalid filetype; jpeg and png only.`;
+		return;
+	} else {
+		const upload = storageRef.child(`${currentUser.uid}/images/${id}-${file.name}`).put(file);
 
-	upload.on('state_changed', (snapshot) => {
-		if (snapshot.state === 'running') {
-			let progress = Math.round(snapshot.bytesTransferred / snapshot.totalBytes * 100);
-			uploadStatus.innerHTML = `UPLOADING IMAGE... ${progress}%`;
-			postButton.disabled = true;
-		}
-	});
-	upload.then((snapshot) => {
-		if (snapshot.state === 'success') {
-			uploadStatus.innerHTML = `IMAGES UPLOADED SUCCESSFULLY`;
-			postButton.disabled = false;
-			snapshot.ref.getDownloadURL().then((url) => {
-				imageUrlArr.push(url);
-			});
-		}
-	});
+		upload.on('state_changed', (snapshot) => {
+			if (snapshot.state === 'running') {
+				let progress = Math.round(snapshot.bytesTransferred / snapshot.totalBytes * 100);
+				uploadStatus.innerHTML = `UPLOADING IMAGE... ${progress}%`;
+				postButton.disabled = true;
+			}
+		});
+		upload.then((snapshot) => {
+			if (snapshot.state === 'success') {
+				uploadStatus.innerHTML = `IMAGES UPLOADED SUCCESSFULLY`;
+				postButton.disabled = false;
+				snapshot.ref.getDownloadURL().then((url) => {
+					imageUrlArr.push(url);
+				});
+			}
+		});
+	}
 };
 
 const addPostToCollection = () => {
@@ -82,6 +91,7 @@ const createForm = document.getElementById('create-form'),
 		maxFiles: 10,
 		allowReorder: true,
 		name: 'images',
+		acceptedFileTypes: [ 'image/*' ],
 		required: true,
 		imageResizeTargetHeight: 400,
 		checkValidity: true,
