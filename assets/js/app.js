@@ -85,6 +85,20 @@ const imageCarouselEffect = () => {
 	}
 };
 
+const deletePost = (postId) => {
+	// Permission is also validated server side
+	db
+		.collection('posts')
+		.doc(postId)
+		.delete()
+		.then(() => {
+			location.reload();
+		})
+		.catch((err) => {
+			console.log(`Error: ${err}`);
+		});
+};
+
 const renderGallery = async () => {
 	// get data from Firestore
 	const posts = await db.collection('posts').orderBy('timestamp', 'desc').get().then((snapshot) => {
@@ -115,7 +129,6 @@ const renderGallery = async () => {
 
 			// Get info on person who made post
 			const poster = await db.collection('users').doc(postedBy).get().then((doc) => {
-				console.log(doc.data());
 				return doc.data();
 			});
 
@@ -130,7 +143,7 @@ const renderGallery = async () => {
 						<h5 class="hike-card-location"><span class="hike-card-city">${city}</span>, ${state}</h5>
 						<h5 class="hike-card-country">${country}</h5>
                     </div>
-                    <div class="hike-card-avatar popup" id=${hike.id}>
+                    <div class="hike-card-avatar popup" id="${hike.id}-avatar">
 						<img class="hike-card-avatar-sm" src=${posterAvatar} onError="this.onerror=null;this.src='../assets/img/blank-avatar.png'" />
 						<span class="avatar-info popuptext" id="${hike.id}-popup"}>
 						<p class="avatar-name">${posterName}</p>
@@ -158,8 +171,14 @@ const renderGallery = async () => {
 							Posted: ${postedDate}
 							<br>
 							${currentUser.uid === postedBy
-								? `<span id="delete-post-${hike.id}"><i class="far fa-trash-alt"></i></span>`
-								: `<span></span>`}
+								? `<span id="${hike.id}-delete"><i class="far fa-trash-alt"></i></span>`
+								: `<span id="${hike.id}-delete"></span>`}
+							<br>
+							<div id="${hike.id}-delete-confirm" class="hidden">
+							<p class="delete-confirm-text">Are you sure?</p>
+							<button id="${hike.id}-delete-yes" class="delete-button">DELETE</button>
+							<button id="${hike.id}-delete-no" class="cancel-button">CANCEL</button>
+							</div>	
 						</div>
                     </div>
 				</div>
@@ -167,11 +186,21 @@ const renderGallery = async () => {
 			gallery.appendChild(card);
 
 			// Info popup when avatar is clicked
-			document.getElementById(hike.id).addEventListener('mouseenter', () => {
+			// HOLY SHIT THIS GOT UGLY
+			document.getElementById(`${hike.id}-avatar`).addEventListener('mouseenter', () => {
 				document.getElementById(`${hike.id}-popup`).classList.toggle('show');
 			});
-			document.getElementById(hike.id).addEventListener('mouseleave', () => {
+			document.getElementById(`${hike.id}-avatar`).addEventListener('mouseleave', () => {
 				document.getElementById(`${hike.id}-popup`).classList.toggle('show');
+			});
+			document.getElementById(`${hike.id}-delete`).addEventListener('click', () => {
+				document.getElementById(`${hike.id}-delete-confirm`).classList.remove('hidden');
+				document.getElementById(`${hike.id}-delete-confirm`).style.display = 'inherit';
+				document.getElementById(`${hike.id}-delete-yes`).addEventListener('click', () => deletePost(hike.id));
+				document.getElementById(`${hike.id}-delete-no`).addEventListener('click', () => {
+					document.getElementById(`${hike.id}-delete-confirm`).classList.add('hidden');
+					document.getElementById(`${hike.id}-delete-confirm`).style.display = 'none';
+				});
 			});
 			imageCarouselEffect();
 		});

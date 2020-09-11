@@ -113,6 +113,17 @@ div.flickity-viewport {
 	text-transform: capitalize;
 }
 
+.fa-trash-alt {
+	color: darkred;
+
+	transition: all .3s;
+}
+
+.fa-trash-alt:hover {
+	color: red;
+	cursor: pointer;
+}
+
 #footer {
 	text-align: center;
 }
