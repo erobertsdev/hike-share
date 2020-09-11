@@ -12,27 +12,35 @@ const avatarStatus = document.getElementById('avatar-status'),
 let currentUser = null;
 
 const avatarUpload = (user, file) => {
-	const avatarName = `${user.uid}-avatar.${file.name.split('.')[1]}`;
+	if (file.size > 550000) {
+		avatarStatus.innerHTML = `${file.name} filesize is over 5MB, cannot upload.`;
+		return;
+	} else if (file.type !== 'image/jpeg' || file.type !== 'image/png') {
+		avatarStatus.innerHTML = `${file.name} invalid filetype; jpeg and png only.`;
+		return;
+	} else {
+		const avatarName = `${user.uid}-avatar.${file.name.split('.')[1]}`;
 
-	const upload = storageRef.child(`${user.uid}/images/${avatarName}`).put(file);
+		const upload = storageRef.child(`${user.uid}/images/${avatarName}`).put(file);
 
-	upload.on('state_changed', (snapshot) => {
-		if (snapshot.state === 'running') {
-			let progress = Math.round(snapshot.bytesTransferred / snapshot.totalBytes * 100);
-			avatarStatus.innerHTML = `UPLOADING IMAGE... ${progress}%`;
-		}
-	});
-	upload.then((snapshot) => {
-		if (snapshot.state === 'success') {
-			snapshot.ref.getDownloadURL().then((url) => {
-				user
-					.updateProfile({
-						photoURL: url
-					})
-					.then(() => location.reload());
-			});
-		}
-	});
+		upload.on('state_changed', (snapshot) => {
+			if (snapshot.state === 'running') {
+				let progress = Math.round(snapshot.bytesTransferred / snapshot.totalBytes * 100);
+				avatarStatus.innerHTML = `UPLOADING IMAGE... ${progress}%`;
+			}
+		});
+		upload.then((snapshot) => {
+			if (snapshot.state === 'success') {
+				snapshot.ref.getDownloadURL().then((url) => {
+					user
+						.updateProfile({
+							photoURL: url
+						})
+						.then(() => location.reload());
+				});
+			}
+		});
+	}
 };
 
 const deleteAccount = (userId) => {
