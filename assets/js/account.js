@@ -73,8 +73,18 @@ const renderAccountInfo = (user) => {
 		db.collection('users').doc(user.uid).get().then((doc) => {
 			const { name, experience, id } = doc.data();
 
+			if (!user.photoURL) {
+				auth.onAuthStateChanged((user) => {
+					user.updateProfile({
+						photoURL:
+							'https://firebasestorage.googleapis.com/v0/b/hike-share-bfa7e.appspot.com/o/blank-avatar.png?alt=media&token=da26fad1-3833-4ca4-9295-a0c421fdce7b'
+					});
+				});
+			}
+
 			accountInfoDOM.innerHTML = `
-			<img class="account-avatar" src=${user.photoURL || '../assets/img/blank-avatar.png'} alt="avatar" />
+			<img class="account-avatar" src=${user.photoURL ||
+				'https://firebasestorage.googleapis.com/v0/b/hike-share-bfa7e.appspot.com/o/blank-avatar.png?alt=media&token=da26fad1-3833-4ca4-9295-a0c421fdce7b'} alt="avatar" />
             <p class="account-name">${name}</p>
 			<p class="account-email">${user.email} (Only visible to you)</p>
 			<p class="account-experience">Hiking Experience: ${experience} <i class="far fa-edit"></i></p>

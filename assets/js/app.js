@@ -154,7 +154,7 @@ const renderGallery = async () => {
 						<h5 class="hike-card-country">${country}</h5>
                     </div>
                     <div class="hike-card-avatar popup" id="${hike.id}-avatar">
-						<img class="hike-card-avatar-sm" src=${posterAvatar} onError="this.onerror=null;this.src='../assets/img/blank-avatar.png'" />
+						<img class="hike-card-avatar-sm" src=${posterAvatar} />
 						<span class="avatar-info popuptext" id="${hike.id}-popup"}>
 						<p class="avatar-name">${posterName}</p>
 						<hr class="avatar-hr">
