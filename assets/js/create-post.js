@@ -15,7 +15,6 @@ let imagesToUploadArr = [],
 	currentUser = null;
 
 const imageUpload = (file, id) => {
-	console.log('derp');
 	const upload = storageRef.child(`${currentUser.uid}/images/${id}-${file.name}`).put(file);
 
 	upload.on('state_changed', (snapshot) => {
@@ -31,7 +30,6 @@ const imageUpload = (file, id) => {
 			postButton.disabled = false;
 			snapshot.ref.getDownloadURL().then((url) => {
 				imageUrlArr.push(url);
-				console.log(imageUrlArr);
 			});
 		}
 	});
@@ -68,7 +66,6 @@ const addPostToCollection = () => {
 auth.onAuthStateChanged((user) => {
 	if (user) {
 		currentUser = user;
-		console.log('authChange', currentUser);
 		createForm.addEventListener('submit', (e) => {
 			e.preventDefault();
 			addPostToCollection();
@@ -95,7 +92,6 @@ const createForm = document.getElementById('create-form'),
 			files.map((img) => {
 				if (!imagesToUploadArr.includes(img.file)) {
 					imagesToUploadArr.push(img.file);
-					console.log(imagesToUploadArr);
 					imageUpload(img.file, img.id);
 				}
 			});

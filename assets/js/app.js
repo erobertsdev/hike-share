@@ -193,7 +193,6 @@ const renderGallery = async () => {
                     </div>
 				</div>
 		`;
-			console.log(currentUser);
 			gallery.appendChild(card);
 
 			// Info popup when avatar is clicked
