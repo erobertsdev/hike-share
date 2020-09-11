@@ -44,7 +44,8 @@ const renderAccountInfo = (user) => {
             <p class="account-name">${doc.data().name}</p>
 			<p class="account-email">${user.email} (Only visible to you)</p>
 			<p class="account-experience">Hiking Experience: ${doc.data().experience} <i class="far fa-edit"></i></p>
-            <p class="account-created">Joined: ${user.metadata.creationTime}</p>
+			<p class="account-created">Joined: ${user.metadata.creationTime}</p>
+			<button id="delete-account-btn">Delete Account</button>
 		`;
 			if (!user.displayName) {
 				auth.onAuthStateChanged((user) => {
