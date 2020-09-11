@@ -113,10 +113,13 @@
 }
 
 .delete-button {
+	padding: 0 5px;
 	color: darkred;
+	margin-right: 30px;
 }
 
 .cancel-button {
+	padding: 0 5px;
 	color: dodgerblue;
 }
 
