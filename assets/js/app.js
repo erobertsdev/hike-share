@@ -2,7 +2,7 @@ const gallery = document.getElementById('main'),
 	navMenu = document.querySelector('.nav-menu');
 
 let currentUser = {
-	id: 'notLoggedIn'
+	uid: 'notLoggedIn'
 };
 
 const renderNav = (user) => {
@@ -28,7 +28,7 @@ const renderNav = (user) => {
 
 		// Logout user
 		const logout = document.getElementById('logout');
-		logout.addEventListener('click', (e) => {
+		logout.addEventListener('click', () => {
 			auth.signOut().then(() => location.reload());
 		});
 	} else {
@@ -92,18 +92,21 @@ const imageCarouselEffect = () => {
 
 const deletePost = (postId) => {
 	// Permission is validated server side
-	db
-		.collection('posts')
-		.doc(postId)
-		.delete()
-		.then(() => {
-			location.reload();
-		})
-		.catch((err) => {
+	// deletes post from firebase store and images from firebase storage
+
+	db.collection('posts').doc(postId).get().then((doc) => {
+		// Map over images in post and delete from firebase storage
+		let images = doc.data().images; // Images array
+		images.map((img) => {
+			storage.refFromURL(img).delete();
+		});
+		// delete post
+		doc.ref.delete().then(() => location.reload()).catch((err) => {
 			document.getElementById(
 				`${postId}-delete`
 			).innerHTML = `<div class="error">Could not delete post: ${err}</div>`;
 		});
+	});
 };
 
 const renderGallery = async () => {
@@ -177,7 +180,7 @@ const renderGallery = async () => {
 						<div class="hike-card-date">
 							Posted: ${postedDate}
 							<br>
-							${currentUser.id === postedBy
+							${currentUser.uid === postedBy
 								? `<span id="${hike.id}-delete"><i class="far fa-trash-alt"></i></span>`
 								: `<span id="${hike.id}-delete"></span>`}
 							<br>
@@ -190,6 +193,7 @@ const renderGallery = async () => {
                     </div>
 				</div>
 		`;
+			console.log(currentUser);
 			gallery.appendChild(card);
 
 			// Info popup when avatar is clicked
