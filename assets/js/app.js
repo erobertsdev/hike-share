@@ -95,7 +95,9 @@ const deletePost = (postId) => {
 			location.reload();
 		})
 		.catch((err) => {
-			console.log(`Error: ${err}`);
+			document.getElementById(
+				`${postId}-delete`
+			).innerHTML = `<div class="error">Could not delete post: ${err}</div>`;
 		});
 };
 
