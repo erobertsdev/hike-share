@@ -86,7 +86,7 @@ const imageCarouselEffect = () => {
 };
 
 const deletePost = (postId) => {
-	// Permission is also validated server side
+	// Permission is validated server side
 	db
 		.collection('posts')
 		.doc(postId)
@@ -187,6 +187,7 @@ const renderGallery = async () => {
 
 			// Info popup when avatar is clicked
 			// HOLY SHIT THIS GOT UGLY
+			// All the one million event listeners for the avatar popup and deleting posts
 			document.getElementById(`${hike.id}-avatar`).addEventListener('mouseenter', () => {
 				document.getElementById(`${hike.id}-popup`).classList.toggle('show');
 			});

@@ -1,12 +1,35 @@
 * {
 	text-align: center;
+	box-sizing: border-box;
 }
 
 .create-form-images {
 	margin: 20px auto;
 	max-width: 600px;
+	background-color: white;
+}
+
+.filepond--drop-label {
+	background-color: white;
+}
+
+.create-btn {
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 30px;
+}
+
+#create-post-title {
+	font-size: 2rem;
+	color: darkolivegreen;
 }
 
 #upload-status {
-	background-color: gray;
+	background-color: darkolivegreen;
+	color: white;
+}
+
+input:focus {
+	outline: none;
+	border-bottom: 3px solid darkolivegreen;
 }
