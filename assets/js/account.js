@@ -42,8 +42,8 @@ const renderAccountInfo = (user) => {
 			accountInfoDOM.innerHTML = `
 			<img class="account-avatar" src=${user.photoURL || '../assets/img/blank-avatar.png'} alt="avatar" />
             <p class="account-name">${doc.data().name}</p>
-			<p class="account-email">${user.email}</p>
-			<p class="account-experience">Hiking Experience: ${doc.data().experience}</p>
+			<p class="account-email">${user.email} (Only visible to you)</p>
+			<p class="account-experience">Hiking Experience: ${doc.data().experience} <i class="far fa-edit"></i></p>
             <p class="account-created">Joined: ${user.metadata.creationTime}</p>
 		`;
 			if (!user.displayName) {

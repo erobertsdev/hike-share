@@ -2,8 +2,40 @@
 	text-align: center;
 }
 
+a:visited {
+	color: white;
+}
+
+#account-title {
+	margin-top: 10px;
+	font-size: 2rem;
+	color: darkolivegreen;
+}
+
 .account-avatar {
 	height: 150px;
+	border: 2px solid darkolivegreen;
+	border-radius: 5px;
+}
+
+.account-name {
+	font-size: 1.5rem;
+	color: darkolivegreen;
+}
+
+.fa-edit {
+	padding-left: 5px;
+	color: darkolivegreen;
+}
+
+.fa-edit:hover {
+	filter: brightness(120%);
+	cursor: pointer;
+}
+
+.filepond--drop-label {
+	background-color: white;
+	border: 1px solid black;
 }
 
 .account-experience {
@@ -13,4 +45,19 @@
 #avatar-upload {
 	width: 250px;
 	margin: 20px auto;
+}
+
+#return-btn {
+	padding: 5px 10px;
+	margin: 10px auto;
+	font-weight: 600;
+	width: fit-content;
+	background-color: darkolivegreen;
+	color: white;
+	border-radius: 5px;
+	border: 1px solid black;
+}
+
+#return-btn:hover {
+	filter: brightness(120%);
 }
