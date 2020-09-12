@@ -39,7 +39,7 @@ const renderNav = (user) => {
 						<a href="../../login.html">Login</a>
 					</li>
 					<li class="nav-menu-option">
-						<a href="../../assets/register.html">Register</a>
+						<a href="../../register.html">Register</a>
 					</li>
 				</ul>
 			</div>
