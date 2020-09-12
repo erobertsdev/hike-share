@@ -25,7 +25,7 @@ registerForm.addEventListener('submit', (e) => {
 			})
 			.then(() => {
 				registerForm.reset();
-				window.location.replace('../assets/account.html');
+				window.location.replace('../../account.html');
 			})
 			.catch((err) => {
 				errorMessage.innerHTML = `<h4 class="error-message">${err.message}</h4>`;

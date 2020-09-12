@@ -11,13 +11,13 @@ const renderNav = (user) => {
 			<div class="nav-menu-list">
 				<ul class="nav-menu-options">
 					<li class="nav-menu-account">
-					<a href="./assets/account.html">
+					<a href="../../account.html">
 						<img class="nav-avatar" src="${user.photoURL || '../assets/img/blank-avatar.png'}" />
 							${user.displayName.replace(/\s.*/, '')}
 						</a>
 					</li>
 					<li class="nav-menu-option">
-						<a href="./assets/create-post.html">Create Post</a>
+						<a href="../../create-post.html">Create Post</a>
 					</li>
 					<li class="nav-menu-option">
 						<a href="#" id="logout">Log Out</a>
@@ -36,10 +36,10 @@ const renderNav = (user) => {
 			<div class="nav-menu-list logged-out">
 				<ul class="nav-menu-options">
 					<li class="nav-menu-option">
-						<a href="./assets/login.html">Login</a>
+						<a href="../../login.html">Login</a>
 					</li>
 					<li class="nav-menu-option">
-						<a href="./assets/register.html">Register</a>
+						<a href="../../assets/register.html">Register</a>
 					</li>
 				</ul>
 			</div>
