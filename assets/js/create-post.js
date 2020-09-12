@@ -112,6 +112,8 @@ const createForm = document.getElementById('create-form'),
 			if (err) uploadStatus.innerHTML = `${err.message}`;
 			for (let i = 0; i < imageUrlArr.length; i++) {
 				if (imageUrlArr[i].includes(file.filename)) {
+					storage.refFromURL(imageUrlArr[i]).delete();
+					uploadStatus.innerHTML = `REMOVED ${file.filename}`;
 					imageUrlArr.splice(i, 1);
 				}
 			}
