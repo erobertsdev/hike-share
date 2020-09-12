@@ -1,0 +1,24 @@
+* {
+	text-align: center;
+}
+
+#login-title {
+	font-size: 2rem;
+	color: darkolivegreen;
+}
+
+#login-btn {
+	margin-top: 20px;
+	background-color: darkolivegreen;
+	color: white;
+	border: 1px solid black;
+	font-weight: 700;
+	border-radius: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#login-btn:hover {
+	cursor: pointer;
+	filter: brightness(120%);
+}

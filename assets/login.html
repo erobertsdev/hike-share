@@ -3,22 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ea1a8cf193.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/login.css">
     <title>Hike Share | Login</title>
 </head>
 <body>
-    <h1>Login</h1>
+
+    <section>
+        <nav id="nav">
+            <a href="../index.html"><h1 class="nav-title">Hike<i class="fas fa-tree"></i>Share</h1></a>
+        </nav>
+    </section>
+
+    <h1 id="login-title">Login</h1>
     <section id="login">
         <div id="errors"></div>
         <form id="login-form">
             <div class="input-field">
+                <label for="login-email">Email</label><br>
                 <input type="email" id="login-email" required />
-                <label for="login-email">Email</label>
             </div>
             <div class="input-field">
+                <label for="login-password">Password</label><br>
                 <input type="password" id="login-password" required />
-                <label for="login-password">Password</label>
             </div>
-            <button class="login-btn">Login</button>
+            <button id="login-btn">Login</button>
         </form>
     </section>
 
