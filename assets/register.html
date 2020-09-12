@@ -3,32 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ea1a8cf193.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/register.css">
     <title>Hike Share | Register</title>
 </head>
 <body>
-    <h1>Register</h1>
+
+    <section>
+        <nav id="nav">
+            <a href="../index.html"><h1 class="nav-title">Hike<i class="fas fa-tree"></i>Share</h1></a>
+            <div class="nav-menu-list">
+            <ul class="nav-menu-options nav-menu-home">
+                <li class="nav-menu-option">
+                <a href="../index.html">
+                    Home
+                    </a>
+                </li>
+                <li class="nav-menu-option">
+                    <a href="./login.html">
+                        Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </section>
+
+    <h1 id="register-title">Register</h1>
     <section id="register">
         <div id="errors"></div>
         <form id="register-form">
             <div class="register-field">
-                <label for="register-name">Name</label>
+                <label for="register-name">Name</label><br>
                 <input type="text" id="register-name" maxlength="35" required />
             </div>
             <div class="register-field">
-                <label for="register-email">Email</label>
+                <label for="register-email">Email</label><br>
                 <input type="email" id="register-email" required />
             </div>
             <div class="register-field">
-                <label for="register-password">Password</label>
+                <label for="register-password">Password</label><br>
                 <input type="password" id="register-password" required />
             </div>
             <div class="register-field">
-                <label for="register-confirm-password">Confirm Password</label>
+                <label for="register-confirm-password">Confirm Password</label><br>
                 <input type="password" id="register-confirm-password" required />
             </div>
             <div class="register-field-experience">
-                <label for="difficulty">Rate Your Hiking Experience Level</label><br>
+                <label for="difficulty" class="experience-title">Rate Your Hiking Experience Level</label><br>
                 <input type="radio" id="beginner" name="experience" value="beginner" required>
                 <label for="beginner">Beginner</label><br>
                 <input type="radio" id="intermediate" name="experience" value="intermediate">
