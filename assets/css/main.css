@@ -149,3 +149,21 @@ div.flickity-viewport {
 .bold {
 	font-weight: bold;
 }
+
+@media all and (max-width: 700px) {
+	#nav {
+		text-align: center;
+		display: block;
+		height: 150px;
+	}
+	.nav-title {
+		margin: 0 auto;
+	}
+	.nav-menu {
+		transform: translateY(60px);
+		/* display: block; */
+	}
+	.nav-menu-list {
+		float: none;
+	}
+}
