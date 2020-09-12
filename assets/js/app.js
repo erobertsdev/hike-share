@@ -12,7 +12,7 @@ const renderNav = (user) => {
 				<ul class="nav-menu-options">
 					<li class="nav-menu-account">
 					<a href="./account.html">
-						<img class="nav-avatar" src="${user.photoURL || '../assets/img/blank-avatar.png'}" />
+						<img class="nav-avatar" src="${user.photoURL || './assets/img/blank-avatar.png'}" />
 							${user.displayName.replace(/\s.*/, '')}
 						</a>
 					</li>
