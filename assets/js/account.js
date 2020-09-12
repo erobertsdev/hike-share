@@ -12,8 +12,8 @@ const avatarStatus = document.getElementById('avatar-status'),
 let currentUser = null;
 
 const avatarUpload = (user, file) => {
-	if (file.size > 5242880) {
-		avatarStatus.innerHTML = `${file.name} filesize is over 5MB, cannot upload.`;
+	if (file.size > 15242880) {
+		avatarStatus.innerHTML = `${file.name} filesize is over 15MB, cannot upload.`;
 		return;
 	} else if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
 		avatarStatus.innerHTML = `${file.name} invalid filetype; jpeg and png only.`;
@@ -189,7 +189,7 @@ const avatarForm = document.getElementById('avatar-form'),
 		imageResizeTargetHeight: 250,
 		checkValidity: true,
 		allowImageExifOrientation: true,
-		maxFileSize: '5MB',
+		maxFileSize: '15MB',
 		labelIdle: 'Upload/Replace Profile Image',
 
 		onaddfile: (err, file) => {
