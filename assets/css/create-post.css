@@ -29,6 +29,11 @@
 	filter: brightness(120%);
 }
 
+.create-btn:disabled {
+	cursor: not-allowed;
+	background-color: darkgray;
+}
+
 #create-post-title {
 	font-size: 2rem;
 	color: darkolivegreen;
