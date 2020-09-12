@@ -97,11 +97,24 @@ const renderAccountInfo = (user) => {
             <p class="account-name">${name}</p>
 			<p class="account-email">${user.email} (Only visible to you)</p>
 			<p class="account-experience">Hiking Experience: ${experience} <i class="far fa-edit"></i></p>
+			<form id="edit-experience" class="hidden">
+                <input type="radio" id="beginner" name="experience" value="beginner" required>
+                <label for="beginner">Beginner</label><br>
+                <input type="radio" id="intermediate" name="experience" value="intermediate">
+                <label for="intermediate">Intermediate</label><br>
+                <input type="radio" id="advanced" name="experience" value="advanced">
+                <label for="advanced">Advanced</label><br>
+                <input type="radio" id="expert" name="experience" value="expert">
+				<label for="expert">Expert</label><br>
+				<button id="update-confirm" class="delete-button">UPDATE</button>
+				<button id="update-cancel" class="cancel-button">CANCEL</button>
+            </form>
 			<p class="account-created">Joined: ${user.metadata.creationTime}</p>
 			<button id="delete-account-btn">Delete Account</button>
 			<div id="delete-account" class="hidden">
 			<div id="errors"></div>
 			<p class="delete-confirm-text">Are you sure? This account can't be recovered.</p>
+			<p class="delete-confirm-text">This also deletes all posts you've made.</p>
 			<button id="delete-yes" class="delete-button">DELETE</button>
 			<button id="delete-no" class="cancel-button">CANCEL</button>
 		</div>
@@ -114,10 +127,39 @@ const renderAccountInfo = (user) => {
 				});
 			}
 
-			const deleteButton = document.getElementById('delete-account-btn'),
+			const updateForm = document.getElementById('edit-experience'),
+				updateBtn = document.querySelector('.fa-edit'),
+				updateYes = document.getElementById('update-confirm'),
+				updateNo = document.getElementById('update-cancel'),
+				deleteButton = document.getElementById('delete-account-btn'),
 				deleteConfirm = document.getElementById('delete-account'),
 				deleteYes = document.getElementById('delete-yes'),
 				deleteNo = document.getElementById('delete-no');
+
+			updateBtn.addEventListener('click', () => {
+				updateForm.classList.remove('hidden');
+				updateForm.style.display = 'inherit';
+			});
+
+			updateYes.addEventListener('click', (e) => {
+				e.preventDefault();
+
+				// Update hiking level
+				db
+					.collection('users')
+					.doc(user.uid)
+					.update({
+						experience: updateForm['experience'].value
+					})
+					.then(() => location.reload());
+			});
+
+			updateNo.addEventListener('click', (e) => {
+				e.preventDefault();
+				// Hide update form
+				updateForm.classList.add('hidden');
+				updateForm.style.display = 'none';
+			});
 
 			deleteButton.addEventListener('click', () => {
 				deleteConfirm.classList.remove('hidden');
