@@ -12,10 +12,10 @@ const avatarStatus = document.getElementById('avatar-status'),
 let currentUser = null;
 
 const avatarUpload = (user, file) => {
-	if (file.size > 550000) {
+	if (file.size > 5242880) {
 		avatarStatus.innerHTML = `${file.name} filesize is over 5MB, cannot upload.`;
 		return;
-	} else if (file.type !== 'image/jpeg' || file.type !== 'image/png') {
+	} else if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
 		avatarStatus.innerHTML = `${file.name} invalid filetype; jpeg and png only.`;
 		return;
 	} else {

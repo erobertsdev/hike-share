@@ -15,8 +15,6 @@ let imagesToUploadArr = [],
 	currentUser = null;
 
 const imageUpload = (file, id) => {
-	console.log(file.type !== 'image/jpeg');
-	console.log(file);
 	if (file.size > 5242880) {
 		uploadStatus.innerHTML = `${file.name} filesize is over 5MB, cannot upload.`;
 		return;
