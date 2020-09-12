@@ -77,7 +77,7 @@ const deleteAccount = (userId) => {
 const renderAccountInfo = (user) => {
 	if (!user) {
 		accountInfoDOM.innerHTML = `You are not logged in. Please 
-		<a href="../register.html">create an account</a> or <a href="./login.html">login</a>.`;
+		<a href="./register.html">create an account</a> or <a href="./login.html">login</a>.`;
 	} else {
 		db.collection('users').doc(user.uid).get().then((doc) => {
 			const { name, experience, id } = doc.data();

@@ -15,8 +15,8 @@ let imagesToUploadArr = [],
 	currentUser = null;
 
 const imageUpload = (file, id) => {
-	if (file.size > 5242880) {
-		uploadStatus.innerHTML = `${file.name} filesize is over 5MB, cannot upload.`;
+	if (file.size > 15242880) {
+		uploadStatus.innerHTML = `${file.name} filesize is over 15MB, cannot upload.`;
 		return;
 	}
 	if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
@@ -96,7 +96,7 @@ const createForm = document.getElementById('create-form'),
 		imageResizeTargetHeight: 400,
 		checkValidity: true,
 		allowImageExifOrientation: true,
-		maxFileSize: '5MB',
+		maxFileSize: '15MB',
 
 		onupdatefiles: (files) => {
 			files.map((img) => {
