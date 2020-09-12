@@ -129,6 +129,14 @@ div.flickity-viewport {
 	text-align: center;
 }
 
+#footer-link {
+	color: darkolivegreen;
+}
+
+#footer-link:hover {
+	filter: brightness(120%);
+}
+
 .hidden {
 	display: none;
 }
