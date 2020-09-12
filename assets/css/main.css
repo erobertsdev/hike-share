@@ -80,6 +80,10 @@ div.flickity-viewport {
 	filter: brightness(120%);
 }
 
+.nav-menu-home {
+	margin-top: 15px;
+}
+
 .nav-menu-account {
 	transition: all .3s;
 }

@@ -2,12 +2,8 @@
 	text-align: center;
 }
 
-a:visited {
-	color: white;
-}
-
 #account-title {
-	margin-top: 10px;
+	margin-top: 55px;
 	font-size: 2rem;
 	color: darkolivegreen;
 }
