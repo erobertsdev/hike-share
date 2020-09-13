@@ -28,10 +28,15 @@
 .hike-card-name {
 	color: darkolivegreen;
 	margin-top: 60px;
+	text-transform: capitalize;
 }
 
 .hike-card-info {
 	margin-bottom: 20px;
+}
+
+.hike-card-city {
+	text-transform: uppercase;
 }
 
 .hike-card-location,
