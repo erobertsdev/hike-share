@@ -51,6 +51,7 @@
 	font-weight: 500;
 	border-radius: 10px;
 	width: fit-content;
+	max-width: 90vw;
 }
 
 .hike-card-date {
