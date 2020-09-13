@@ -26,8 +26,6 @@ var dataURLToBlob = function(dataURL) {
 
 const compressImage = (file, fileName, id) => {
 	if (file.type.match(/image.*/)) {
-		console.log('An image has been loaded');
-
 		// Load the image
 		var reader = new FileReader();
 		reader.onload = function(readerEvent) {
@@ -35,7 +33,7 @@ const compressImage = (file, fileName, id) => {
 			image.onload = function(imageEvent) {
 				// Resize the image
 				var canvas = document.createElement('canvas'),
-					max_size = 400, // TODO : pull max size from a site config
+					max_size = 650,
 					width = image.width,
 					height = image.height;
 				if (width > height) {
@@ -54,9 +52,6 @@ const compressImage = (file, fileName, id) => {
 				canvas.getContext('2d').drawImage(image, 0, 0, width, height);
 				var dataUrl = canvas.toDataURL('image/jpeg');
 				var resizedImage = dataURLToBlob(dataUrl);
-				console.log(dataUrl);
-				console.log(resizedImage);
-				console.log(fileName, 'fileName');
 				imageUpload(resizedImage, fileName, id);
 			};
 			image.src = readerEvent.target.result;

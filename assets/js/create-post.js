@@ -102,7 +102,6 @@ const createForm = document.getElementById('create-form'),
 			files.map((img) => {
 				if (!imagesToUploadArr.includes(img.file)) {
 					imagesToUploadArr.push(img.file);
-					console.log(img.file, 'img.file');
 					compressImage(img.file, img.file.name, img.id);
 				}
 			});
