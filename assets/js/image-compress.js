@@ -33,7 +33,7 @@ const compressImage = (file, fileName, id) => {
 			image.onload = function(imageEvent) {
 				// Resize the image
 				var canvas = document.createElement('canvas'),
-					max_size = 850,
+					max_size = 750,
 					width = image.width,
 					height = image.height;
 				if (width > height) {
