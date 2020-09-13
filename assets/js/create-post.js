@@ -14,16 +14,16 @@ const imageUrlArr = [],
 let imagesToUploadArr = [],
 	currentUser = null;
 
-const imageUpload = (file, id) => {
+const imageUpload = (file, fileName, id) => {
 	if (file.size > 15242880) {
-		uploadStatus.innerHTML = `${file.name} filesize is over 15MB, cannot upload.`;
+		uploadStatus.innerHTML = `${fileName} filesize is over 15MB, cannot upload.`;
 		return;
 	}
 	if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
-		uploadStatus.innerHTML = `${file.name} invalid filetype; jpeg and png only.`;
+		uploadStatus.innerHTML = `${fileName} invalid filetype; jpeg and png only.`;
 		return;
 	} else {
-		const upload = storageRef.child(`${currentUser.uid}/images/${id}-${file.name}`).put(file);
+		const upload = storageRef.child(`${currentUser.uid}/images/${id}-${fileName}`).put(file);
 
 		upload.on('state_changed', (snapshot) => {
 			if (snapshot.state === 'running') {
@@ -102,7 +102,8 @@ const createForm = document.getElementById('create-form'),
 			files.map((img) => {
 				if (!imagesToUploadArr.includes(img.file)) {
 					imagesToUploadArr.push(img.file);
-					imageUpload(img.file, img.id);
+					console.log(img.file, 'img.file');
+					compressImage(img.file, img.file.name, img.id);
 				}
 			});
 		},
