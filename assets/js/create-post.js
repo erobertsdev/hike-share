@@ -88,7 +88,7 @@ const createForm = document.getElementById('create-form'),
 	errorMessage = document.getElementById('errors'),
 	imageUploadElement = document.getElementById('images'),
 	pond = FilePond.create(imageUploadElement, {
-		maxFiles: 10,
+		maxFiles: 15,
 		allowReorder: true,
 		name: 'images',
 		acceptedFileTypes: [ 'image/*' ],
