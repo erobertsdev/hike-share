@@ -242,7 +242,6 @@ const renderGallery = async (startingPoint = null) => {
 			.startAfter(lastVisible)
 			.get()
 			.then((snapshot) => {
-				console.log(snapshot.docs.length, 'inside remainigPostsNum');
 				return snapshot.docs.length;
 			});
 
@@ -269,7 +268,6 @@ const renderGallery = async (startingPoint = null) => {
 			<button id="more-btn">Show More</button>
 			</div>
 			`;
-			console.log('BUTTON GO BYE BYE');
 			document.getElementById('more-btn').style.display = 'none';
 		}
 	}
