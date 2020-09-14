@@ -2,8 +2,9 @@ const gallery = document.getElementById('main'),
 	navMenu = document.querySelector('.nav-menu');
 
 let currentUser = {
-	uid: 'notLoggedIn'
-};
+		uid: 'notLoggedIn'
+	},
+	moreButtonAttached = false;
 
 const renderNav = (user) => {
 	if (user) {
@@ -111,12 +112,12 @@ const deletePost = (postId) => {
 
 const renderGallery = async (startingPoint = null) => {
 	let posts = [],
-		remiainingPosts;
+		remainingPostsNum;
 	// get data from Firestore
 	if (!startingPoint) {
 		posts = await db.collection('posts').orderBy('timestamp', 'desc').limit(5).get().then((snapshot) => {
 			lastVisible = snapshot.docs[snapshot.docs.length - 1];
-			remainingPosts = snapshot.docs.length;
+			remainingPostsNum = snapshot.docs.length;
 			return snapshot.docs;
 		});
 	} else {
@@ -126,15 +127,14 @@ const renderGallery = async (startingPoint = null) => {
 			.limit(5)
 			.startAfter(startingPoint)
 			.get()
-			.then((snapshot) => {
+			.then(async (snapshot) => {
 				lastVisible = snapshot.docs[snapshot.docs.length - 1];
-				remainingPosts = snapshot.docs.length;
 				return snapshot.docs;
 			});
 	}
 
 	if (posts.length === 0) {
-		gallery.innerHTML = `<h4 class="hike-card-name">NO POSTS FOUND</h2>`;
+		gallery.innerHTML = `<h4 class="hike-card-name">NO POSTS FOUND</h4>`;
 	} else {
 		// Get posts
 		posts.map(async (hike) => {
@@ -233,25 +233,44 @@ const renderGallery = async (startingPoint = null) => {
 			});
 			imageCarouselEffect();
 		});
+
+		// Get number of remiaing (unrendered) posts
+		remainingPostsNum = await db
+			.collection('posts')
+			.orderBy('timestamp', 'desc')
+			.limit(5)
+			.startAfter(lastVisible)
+			.get()
+			.then((snapshot) => {
+				console.log(snapshot.docs.length, 'inside remainigPostsNum');
+				return snapshot.docs.length;
+			});
+
 		// Show More Button
 		const more = document.createElement('div');
 		more.id = 'more';
-		if (remainingPosts < 5) {
-			more.innerHTML = `
-			<div id="more">
-			<button id="more-btn">Show More</button>
-			</div>
-			`;
-			document.getElementById('more-btn').style.display = 'none';
-		} else {
+		if (remainingPostsNum > 0) {
 			more.innerHTML = `
 				<div id="more">
 				<button id="more-btn">Show More</button>
 				</div>
 				`;
-			document.getElementById('more-btn').addEventListener('click', () => {
-				renderGallery(lastVisible);
-			});
+			// checks if event listener has already been attached to button
+			// if no, adds event listener
+			if (!moreButtonAttached) {
+				document.getElementById('more-btn').addEventListener('click', () => {
+					renderGallery(lastVisible);
+				});
+				moreButtonAttached = true;
+			}
+		} else {
+			more.innerHTML = `
+			<div id="more">
+			<button id="more-btn">Show More</button>
+			</div>
+			`;
+			console.log('BUTTON GO BYE BYE');
+			document.getElementById('more-btn').style.display = 'none';
 		}
 	}
 };
