@@ -110,7 +110,7 @@ const deletePost = (postId) => {
 	});
 };
 
-const renderGallery = async (startingPoint = null) => {
+const renderGallery = async (startingPoint = null, searchTerms = '') => {
 	let posts = [],
 		remainingPostsNum;
 	// get data from Firestore
@@ -155,6 +155,8 @@ const renderGallery = async (startingPoint = null) => {
 				postedBy
 			} = hike.data();
 
+			// let searchArr = [ name, city, state, country ];
+			// if (searchArr.includes(searchTerms)) {
 			// Get info on person who made post
 			const poster = await db.collection('users').doc(postedBy).get().then((doc) => {
 				return doc.data();
