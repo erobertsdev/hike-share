@@ -110,17 +110,16 @@ const deletePost = (postId) => {
 };
 
 const renderGallery = async (startingPoint = null) => {
-	let posts = [];
-	console.log(startingPoint);
+	let posts = [],
+		remiainingPosts;
 	// get data from Firestore
 	if (!startingPoint) {
 		posts = await db.collection('posts').orderBy('timestamp', 'desc').limit(5).get().then((snapshot) => {
 			lastVisible = snapshot.docs[snapshot.docs.length - 1];
-			console.log(snapshot.docs.length, 'NULL starting point');
+			remainingPosts = snapshot.docs.length;
 			return snapshot.docs;
 		});
 	} else {
-		console.log('THIS ONE RAN');
 		posts = await db
 			.collection('posts')
 			.orderBy('timestamp', 'desc')
@@ -129,13 +128,13 @@ const renderGallery = async (startingPoint = null) => {
 			.get()
 			.then((snapshot) => {
 				lastVisible = snapshot.docs[snapshot.docs.length - 1];
-				console.log(snapshot.docs.length, 'starting point not null');
+				remainingPosts = snapshot.docs.length;
 				return snapshot.docs;
 			});
 	}
 
 	if (posts.length === 0) {
-		gallery.innerHTML = `<h2 class="no-posts">NO POSTS FOUND</h2>`;
+		gallery.innerHTML = `<h4 class="hike-card-name">NO POSTS FOUND</h2>`;
 	} else {
 		// Get posts
 		posts.map(async (hike) => {
@@ -234,9 +233,26 @@ const renderGallery = async (startingPoint = null) => {
 			});
 			imageCarouselEffect();
 		});
-		document.getElementById('more-btn').addEventListener('click', () => {
-			renderGallery(lastVisible);
-		});
+		// Show More Button
+		const more = document.createElement('div');
+		more.id = 'more';
+		if (remainingPosts < 5) {
+			more.innerHTML = `
+			<div id="more">
+			<button id="more-btn">Show More</button>
+			</div>
+			`;
+			document.getElementById('more-btn').style.display = 'none';
+		} else {
+			more.innerHTML = `
+				<div id="more">
+				<button id="more-btn">Show More</button>
+				</div>
+				`;
+			document.getElementById('more-btn').addEventListener('click', () => {
+				renderGallery(lastVisible);
+			});
+		}
 	}
 };
 
