@@ -109,11 +109,30 @@ const deletePost = (postId) => {
 	});
 };
 
-const renderGallery = async () => {
+const renderGallery = async (startingPoint = null) => {
+	let posts = [];
+	console.log(startingPoint);
 	// get data from Firestore
-	const posts = await db.collection('posts').orderBy('timestamp', 'desc').get().then((snapshot) => {
-		return snapshot.docs;
-	});
+	if (!startingPoint) {
+		posts = await db.collection('posts').orderBy('timestamp', 'desc').limit(5).get().then((snapshot) => {
+			lastVisible = snapshot.docs[snapshot.docs.length - 1];
+			console.log(snapshot.docs.length, 'NULL starting point');
+			return snapshot.docs;
+		});
+	} else {
+		console.log('THIS ONE RAN');
+		posts = await db
+			.collection('posts')
+			.orderBy('timestamp', 'desc')
+			.limit(5)
+			.startAfter(startingPoint)
+			.get()
+			.then((snapshot) => {
+				lastVisible = snapshot.docs[snapshot.docs.length - 1];
+				console.log(snapshot.docs.length, 'starting point not null');
+				return snapshot.docs;
+			});
+	}
 
 	if (posts.length === 0) {
 		gallery.innerHTML = `<h2 class="no-posts">NO POSTS FOUND</h2>`;
@@ -190,7 +209,7 @@ const renderGallery = async () => {
 							<button id="${hike.id}-delete-no" class="cancel-button">CANCEL</button>
 							</div>	
 						</div>
-                    </div>
+					</div>
 				</div>
 		`;
 			gallery.appendChild(card);
@@ -214,6 +233,9 @@ const renderGallery = async () => {
 				});
 			});
 			imageCarouselEffect();
+		});
+		document.getElementById('more-btn').addEventListener('click', () => {
+			renderGallery(lastVisible);
 		});
 	}
 };

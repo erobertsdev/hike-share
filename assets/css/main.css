@@ -130,6 +130,24 @@ div.flickity-viewport {
 	cursor: pointer;
 }
 
+#more {
+	text-align: center;
+}
+
+#more-btn {
+	border-radius: 5px;
+	background-color: darkolivegreen;
+	color: white;
+	border: 1px solid black;
+	margin: 20px;
+	padding: 5px;
+}
+
+#more-btn:hover {
+	cursor: pointer;
+	filter: brightness(120%);
+}
+
 #footer {
 	text-align: center;
 }
