@@ -268,7 +268,6 @@ const renderGallery = async (startingPoint = null, searchTerms = '') => {
 			if (currentUser) {
 				commentSection.appendChild(addComment);
 			}
-			console.log(comments);
 
 			// HOLY SHIT THIS GOT UGLY
 			// All the one million event listeners for the avatar popup, comments and deleting posts
