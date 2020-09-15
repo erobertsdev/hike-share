@@ -265,7 +265,7 @@ const renderGallery = async (startingPoint = null, searchTerms = '') => {
 			<button id="${hike.id}-comment-btn" class="comment-btn">Add Comment</button>
 			</form>
 			`;
-			if (currentUser) {
+			if (currentUser.uid !== 'notLoggedIn') {
 				commentSection.appendChild(addComment);
 			}
 
@@ -291,11 +291,13 @@ const renderGallery = async (startingPoint = null, searchTerms = '') => {
 			});
 
 			// ADD COMMENT
-			document.getElementById(`${hike.id}-comment-form`).addEventListener('submit', (e) => {
-				e.preventDefault();
-				let body = document.getElementById(`${hike.id}-textarea`);
-				postComment(hike.id, body.value);
-			});
+			if (currentUser.uid !== 'notLoggedIn') {
+				document.getElementById(`${hike.id}-comment-form`).addEventListener('submit', (e) => {
+					e.preventDefault();
+					let body = document.getElementById(`${hike.id}-textarea`);
+					postComment(hike.id, body.value);
+				});
+			}
 
 			imageCarouselEffect();
 		});
