@@ -16,6 +16,14 @@
 	margin: 0 auto;
 }
 
+.hike-card-avatar-xs {
+	height: 25px;
+	width: 25px;
+	border: 1px solid darkolivegreen;
+	border-radius: 50%;
+	margin: 0 auto;
+}
+
 .avatar-info {
 	font-size: .8rem;
 }
@@ -64,12 +72,54 @@
 	margin-bottom: 60px;
 }
 
+.hike-card-comments {
+	margin: 20px auto;
+	padding: 10px;
+	background: white;
+	max-width: 60%;
+}
+
+.comment-title {
+	line-height: 1rem;
+}
+
+.comment-name {
+	font-size: .8rem;
+	color: darkolivegreen;
+	font-weight: 600;
+}
+
+.comment-hr {
+	margin: 10px auto;
+	width: 60%;
+}
+
+.add-comment {
+	margin-top: 10px;
+}
+
+.comment {
+	padding: 5px 10px;
+}
+
+.comment-btn {
+	background-color: darkolivegreen;
+	color: white;
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 5px 10px;
+}
+
+.comment-btn:hover {
+	cursor: pointer;
+	filter: brightness(120%);
+}
+
 .popup {
 	position: relative;
 	display: inline-block;
 }
 
-/* The actual popup (appears on top) */
 .popup .popuptext {
 	visibility: hidden;
 	width: 160px;
@@ -132,7 +182,6 @@
 	margin-top: 20px;
 }
 
-/* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
 	from {
 		opacity: 0;
@@ -148,5 +197,11 @@
 	}
 	to {
 		opacity: 1;
+	}
+}
+
+@media all and (max-width: 700px) {
+	.hike-card-comments {
+		max-width: 85%;
 	}
 }

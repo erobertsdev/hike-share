@@ -62,7 +62,8 @@ const addPostToCollection = () => {
 			duration: createForm['duration'].value,
 			blurb: createForm['blurb'].value,
 			timestamp: Date.now(),
-			images: imageUrlArr
+			images: imageUrlArr,
+			comments: []
 		})
 		.then(() => {
 			window.location.replace('./index.html');

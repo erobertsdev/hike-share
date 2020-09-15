@@ -110,6 +110,24 @@ const deletePost = (postId) => {
 	});
 };
 
+const postComment = (postId, body) => {
+	const commentsRef = db.collection('posts').doc(postId);
+
+	commentsRef
+		.update({
+			comments: firebase.firestore.FieldValue.arrayUnion({
+				avatarUrl: currentUser.photoURL,
+				body: body,
+				posted: Date.now(),
+				posterId: currentUser.uid,
+				posterName: currentUser.displayName
+			})
+		})
+		.then(() => {
+			location.reload();
+		});
+};
+
 const renderGallery = async (startingPoint = null, searchTerms = '') => {
 	let posts = [],
 		remainingPostsNum;
@@ -139,7 +157,11 @@ const renderGallery = async (startingPoint = null, searchTerms = '') => {
 		// Get posts
 		posts.map(async (hike) => {
 			const card = document.createElement('div');
+			const commentSection = document.createElement('div');
+			const addComment = document.createElement('div');
 			card.classList.add('hike-card');
+			commentSection.classList.add('hike-card-comments');
+			addComment.classList.add('add-comment');
 			const {
 				name,
 				city,
@@ -152,7 +174,8 @@ const renderGallery = async (startingPoint = null, searchTerms = '') => {
 				postedDate,
 				duration,
 				posterAvatar,
-				postedBy
+				postedBy,
+				comments
 			} = hike.data();
 
 			// let searchArr = [ name, city, state, country ];
@@ -215,15 +238,49 @@ const renderGallery = async (startingPoint = null, searchTerms = '') => {
 		`;
 			gallery.appendChild(card);
 
-			// Info popup when avatar is clicked
+			// Retrieve info on comments and render to comments section
+			if (comments.length > 0) {
+				for (let comment of comments) {
+					const { body, posterName, posterId, avatarUrl } = comment;
+					commentSection.innerHTML += `
+				<div class="comment-title">
+					<img class="hike-card-avatar-xs" src=${avatarUrl} />
+					<div class="comment-name">${posterName}</div>
+				</div>
+				<div class="comment-body">${body}</div>
+				<hr class="comment-hr">
+				`;
+					card.appendChild(commentSection);
+				}
+			} else {
+				commentSection.innerHTML = `
+				<div class="comment-name">No Comments</div>
+				`;
+				card.appendChild(commentSection);
+			}
+
+			addComment.innerHTML = `
+			<form id="${hike.id}-comment-form">
+			<textarea id="${hike.id}-textarea" class="comment" name="comment" cols="50" placeholder="Add Comment (200 character max)" maxlength="200" required></textarea><br>
+			<button id="${hike.id}-comment-btn" class="comment-btn">Add Comment</button>
+			</form>
+			`;
+			if (currentUser) {
+				commentSection.appendChild(addComment);
+			}
+			console.log(comments);
+
 			// HOLY SHIT THIS GOT UGLY
-			// All the one million event listeners for the avatar popup and deleting posts
+			// All the one million event listeners for the avatar popup, comments and deleting posts
+			// AVATAR POPUPS
 			document.getElementById(`${hike.id}-avatar`).addEventListener('mouseenter', () => {
 				document.getElementById(`${hike.id}-popup`).classList.toggle('show');
 			});
 			document.getElementById(`${hike.id}-avatar`).addEventListener('mouseleave', () => {
 				document.getElementById(`${hike.id}-popup`).classList.toggle('show');
 			});
+
+			// DELETE POST OPTION
 			document.getElementById(`${hike.id}-delete`).addEventListener('click', () => {
 				document.getElementById(`${hike.id}-delete-confirm`).classList.remove('hidden');
 				document.getElementById(`${hike.id}-delete-confirm`).style.display = 'inherit';
@@ -233,6 +290,14 @@ const renderGallery = async (startingPoint = null, searchTerms = '') => {
 					document.getElementById(`${hike.id}-delete-confirm`).style.display = 'none';
 				});
 			});
+
+			// ADD COMMENT
+			document.getElementById(`${hike.id}-comment-form`).addEventListener('submit', (e) => {
+				e.preventDefault();
+				let body = document.getElementById(`${hike.id}-textarea`);
+				postComment(hike.id, body.value);
+			});
+
 			imageCarouselEffect();
 		});
 
