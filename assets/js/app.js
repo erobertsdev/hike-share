@@ -261,7 +261,7 @@ const renderGallery = async (startingPoint = null, searchTerms = '') => {
 
 			addComment.innerHTML = `
 			<form id="${hike.id}-comment-form">
-			<textarea id="${hike.id}-textarea" class="comment" name="comment" cols="50" placeholder="Add Comment (200 character max)" maxlength="200" required></textarea><br>
+			<textarea id="${hike.id}-textarea" class="comment" name="comment" placeholder="Add Comment (200 character max)" maxlength="200" required></textarea><br>
 			<button id="${hike.id}-comment-btn" class="comment-btn">Add Comment</button>
 			</form>
 			`;
@@ -302,7 +302,7 @@ const renderGallery = async (startingPoint = null, searchTerms = '') => {
 			imageCarouselEffect();
 		});
 
-		// Get number of remiaing (unrendered) posts
+		// Get number of remiaining (unrendered) posts
 		remainingPostsNum = await db
 			.collection('posts')
 			.orderBy('timestamp', 'desc')
