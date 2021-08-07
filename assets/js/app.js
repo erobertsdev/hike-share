@@ -13,7 +13,7 @@ const renderNav = (user) => {
 				<ul class="nav-menu-options">
 					<li class="nav-menu-account">
 					<a href="./account.html">
-						<img class="nav-avatar" src="${user.photoURL || './assets/img/blank-avatar.png'}" />
+						<img loading="lazy" class="nav-avatar" src="${user.photoURL || './assets/img/blank-avatar.png'}" />
 							${user.displayName.replace(/\s.*/, '')}
 						</a>
 					</li>
@@ -63,7 +63,7 @@ const createImgList = (arr) => {
 	for (let img of images) {
 		list += `
 		<div class="carousel-cell">
-			<img src="${img}">
+			<img loading="lazy" src="${img}">
 		</div>
 		`;
 	}
@@ -197,7 +197,7 @@ const renderGallery = async (startingPoint = null, searchTerms = '') => {
 						<h5 class="hike-card-country">${country}</h5>
                     </div>
                     <div class="hike-card-avatar popup" id="${hike.id}-avatar">
-						<img class="hike-card-avatar-sm" src=${posterAvatar} />
+						<img loading="lazy" class="hike-card-avatar-sm" src=${posterAvatar} />
 						<span class="avatar-info popuptext" id="${hike.id}-popup"}>
 						<p class="avatar-name">${posterName}</p>
 						<hr class="avatar-hr">
@@ -244,7 +244,7 @@ const renderGallery = async (startingPoint = null, searchTerms = '') => {
 					const { body, posterName, posterId, avatarUrl } = comment;
 					commentSection.innerHTML += `
 				<div class="comment-title">
-					<img class="hike-card-avatar-xs" src=${avatarUrl} />
+					<img loading="lazy" class="hike-card-avatar-xs" src=${avatarUrl} />
 					<div class="comment-name">${posterName}</div>
 				</div>
 				<div class="comment-body">${body}</div>
